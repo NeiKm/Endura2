@@ -30,7 +30,6 @@ scene_ = MainScene()
 
 menu = Entity(parent=camera.ui)
 
-# Анимация камеры при запуске
 start_pos = Vec3(camera.position.x, camera.position.y + 5, camera.position.z - 15)
 camera.position = start_pos
 camera.animate_position(Vec3(0, 0, 0), duration=2, curve=curve.in_out_cubic)
