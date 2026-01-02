@@ -4,51 +4,57 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1267, 721)
-        MainWindow.setStyleSheet("background-color: rgba(0, 0, 0, 203);")
-        MainWindow.setUnifiedTitleAndToolBarOnMac(False)
+        MainWindow.resize(800, 500)
+        MainWindow.setStyleSheet("background-color: rgb(36, 31, 49);")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.play_button = QtWidgets.QPushButton(self.centralwidget)
-        self.play_button.setGeometry(QtCore.QRect(890, 610, 281, 61))
-        self.play_button.setStyleSheet("background-color: rgba(51, 16, 96, 166);\n"
-"border-radius: 20px;\n"
-"font-size:30px;\n"
-"border-color: rgb(129, 61, 156);\n"
-"\n"
-"\n"
-"")
+        self.play_button.setGeometry(QtCore.QRect(560, 410, 191, 51))
+        self.play_button.setStyleSheet("color: rgb(255, 255, 255);\n"
+"border-radius: 10px;\n"
+"border: 1px solid rgb(255, 255, 255);")
         self.play_button.setObjectName("play_button")
-        self.left_menu = QtWidgets.QLabel(self.centralwidget)
-        self.left_menu.setGeometry(QtCore.QRect(1210, 0, 71, 721))
-        self.left_menu.setStyleSheet("background-color: rgba(51, 16, 96, 166);\n"
-"border-radius: 20px;")
-        self.left_menu.setText("")
-        self.left_menu.setObjectName("left_menu")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(1220, 10, 51, 51))
-        self.pushButton_2.setText("")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(1220, 70, 51, 51))
-        self.pushButton_3.setText("")
-        self.pushButton_3.setObjectName("pushButton_3")
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(1220, 130, 51, 51))
-        self.pushButton_4.setText("")
-        self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(1220, 190, 51, 51))
-        self.pushButton_5.setText("")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.game = QtWidgets.QLabel(self.centralwidget)
-        self.game.setGeometry(QtCore.QRect(-10, 280, 201, 41))
-        self.game.setStyleSheet("background-color: rgb(0, 0, 0);\n"
-"color: rgb(255, 255, 255);\n"
-"padding: 10px;\n"
-"padding-left:60px;\n"
-"border-radius:20px;")
-        self.game.setObjectName("game")
+        self.version_label = QtWidgets.QLabel(self.centralwidget)
+        self.version_label.setGeometry(QtCore.QRect(30, 350, 341, 21))
+        self.version_label.setStyleSheet("background-color: rgb(36, 31, 49);\n"
+"border: 1px solid;\n"
+"border-bottom: 0px;\n"
+"border-radius: 10px;")
+        self.version_label.setObjectName("version_label")
+        self.info_label = QtWidgets.QLabel(self.centralwidget)
+        self.info_label.setGeometry(QtCore.QRect(30, 370, 341, 101))
+        self.info_label.setStyleSheet("background-color: rgb(36, 31, 49);\n"
+"border: 1px solid ;\n"
+"border-radius: 10px;")
+        self.info_label.setObjectName("info_label")
+        self.update_info_label = QtWidgets.QLabel(self.centralwidget)
+        self.update_info_label.setGeometry(QtCore.QRect(130, 380, 231, 81))
+        self.update_info_label.setStyleSheet("border: 1px solid rgb(154, 153, 150);\n"
+"border-radius: 25px;\n"
+"border-right: 0px;\n"
+"color: rgb(153, 193, 241);")
+        self.update_info_label.setObjectName("update_info_label")
+        self.nasroiki = QtWidgets.QPushButton(self.centralwidget)
+        self.nasroiki.setGeometry(QtCore.QRect(760, 10, 31, 31))
+        self.nasroiki.setStyleSheet("border: 1px solid rgb(154, 153, 150);\n"
+"border-radius: 15px;\n"
+"color: rgb(153, 193, 241);")
+        self.nasroiki.setText("")
+        self.nasroiki.setObjectName("nasroiki")
+        self.sopport = QtWidgets.QPushButton(self.centralwidget)
+        self.sopport.setGeometry(QtCore.QRect(760, 50, 31, 31))
+        self.sopport.setStyleSheet("border: 1px solid rgb(154, 153, 150);\n"
+"border-radius: 15px;\n"
+"color: rgb(153, 193, 241);")
+        self.sopport.setText("")
+        self.sopport.setObjectName("sopport")
+        self.blog = QtWidgets.QPushButton(self.centralwidget)
+        self.blog.setGeometry(QtCore.QRect(760, 90, 31, 31))
+        self.blog.setStyleSheet("border: 1px solid rgb(154, 153, 150);\n"
+"border-radius: 15px;\n"
+"color: rgb(153, 193, 241);")
+        self.blog.setText("")
+        self.blog.setObjectName("blog")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -56,9 +62,11 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Endura2"))
         self.play_button.setText(_translate("MainWindow", "PLAY"))
-        self.game.setText(_translate("MainWindow", "Endura2"))
+        self.version_label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#ffffff;\">Версия игры: 0</span></p></body></html>"))
+        self.info_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ffffff;\">О обновление:</span></p></body></html>"))
+        self.update_info_label.setText(_translate("MainWindow", "text texttext text etxt text"))
 
 
 if __name__ == "__main__":
