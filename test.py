@@ -1,2 +1,1 @@
-import mathlib
-print(mathlib.add(5, 3))
+"""Файл для тестов игры, или мини идей ;)"""
