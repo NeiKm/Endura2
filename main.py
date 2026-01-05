@@ -1,11 +1,13 @@
 from ursina import *
 from core.settings import *
 from ursina.shaders import camera_contrast_shader
+# from settings import load_settings
 from scenes.main_scene import MainScene
 
 
 class Main:
     def __init__(self):
+        # load_settings()
         self.app = Ursina(multisample=True, development_mode=True)
 
         self.setup_window()
@@ -46,3 +48,10 @@ class Main:
 
     def run(self):
         self.app.run()
+
+if __name__ == "__main__":
+    print(
+        "Этот файл нельзя запускать напрямую.\n"
+        "Для корректной работы, запускайте игру через launcher.py"
+    )
+    exit(1)
