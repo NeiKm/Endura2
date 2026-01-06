@@ -61,7 +61,7 @@ def load_settings(path="settings.json"):
     try:
         with open(path, "r", encoding="utf-8") as f:
             user = json.load(f)
-        print("USER SETTINGS:", user)  # ← ВАЖНО
+        print("USER SETTINGS:", user)  # ← Уже не важно ;o
         merge(settings, user)
 
     except Exception:

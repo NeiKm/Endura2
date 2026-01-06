@@ -18,11 +18,10 @@ class Main:
         self.animate_camera_start()
 
     def setup_window(self):
-    
         window.title = "Endura2"
         window.borderless = False
         window.fullscreen = True if self.SETTINGS == "true" else False
-        window.size = (WINDOW_WIDTH, WINDOW_HEIGHT)
+        window.size = (self.SETTINGS["graphics"]["resolution"][0], self.SETTINGS["graphics"]["resolution"][1])
         window.color = color.rgb(30, 30, 40)
         window.fps_counter.enabled = True
         window.fps_counter.position = (0.0, 0.0)
