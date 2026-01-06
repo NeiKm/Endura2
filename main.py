@@ -1,13 +1,13 @@
 from ursina import *
 from core.settings import *
 from ursina.shaders import camera_contrast_shader
-# from settings import load_settings
+from settings import load_settings
 from scenes.main_scene import MainScene
 
 
 class Main:
     def __init__(self):
-        # load_settings()
+        self.SETTINGS = load_settings()
         self.app = Ursina(multisample=True, development_mode=True)
 
         self.setup_window()
@@ -18,9 +18,10 @@ class Main:
         self.animate_camera_start()
 
     def setup_window(self):
+    
         window.title = "Endura2"
         window.borderless = False
-        window.fullscreen = FULLSCREEN
+        window.fullscreen = True if self.SETTINGS == "true" else False
         window.size = (WINDOW_WIDTH, WINDOW_HEIGHT)
         window.color = color.rgb(30, 30, 40)
         window.fps_counter.enabled = True
