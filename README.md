@@ -55,7 +55,7 @@ python launcher.py
 
 ## 🤝 Связь
 
-Instagram: [https://www.instagram.com/ne1_km](Написать)
+Instagram: [https://www.instagram.com/ne1_km?utm_source=qr&igsh=MTMzc2piYjR6bnphaA==](Написать)
 
 ---
 
