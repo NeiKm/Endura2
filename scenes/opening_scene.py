@@ -3,6 +3,9 @@ from core.ObjectFactory import ObjectFactory
 from entities.player import Player
 from ursina.shaders import lit_with_shadows_shader
 
+
+"""Этот файл пока не используется в проекте"""
+
 class OpeningScene:
     def __init__(self):
         camera.position = (0, 5, -15)
