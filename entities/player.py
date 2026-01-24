@@ -1,6 +1,7 @@
 from ursina import *
 from ursina.prefabs.first_person_controller import FirstPersonController
 from ursina.shaders import lit_with_shadows_shader
+import math
 
 class Player(FirstPersonController):
 
@@ -46,6 +47,10 @@ class Player(FirstPersonController):
         # self.ui = self.UI()
         self.default_shader = lit_with_shadows_shader
 
+        self.shake_timer = 0
+        self.shake_power = 0.06
+        self.shake_speed = 12
+
 
     def update(self):
         super().update()
@@ -53,6 +58,7 @@ class Player(FirstPersonController):
             self.speed = 8
         else:
             self.speed = 5
+        self.camera_shaking()
     
 
     def input(self, key):
@@ -65,6 +71,21 @@ class Player(FirstPersonController):
             self.eyes(movement = "close")
         if key == 'o':
             self.eyes(movement = "open")
+
+
+    def camera_shaking(self):
+        is_moving = self.direction.length() > 0 and self.grounded
+
+        if is_moving:
+            current_shake_speed = self.shake_speed * 1.5 if held_keys['shift'] else self.shake_speed
+            self.shake_timer += time.dt * current_shake_speed
+
+            camera.x = math.cos(self.shake_timer * 0.5) * self.shake_power * 0.5
+            camera.y = math.sin(self.shake_timer) * self.shake_power
+        else:
+            self.shake_timer = 0
+            camera.x = lerp(camera.x, 0, time.dt * 10)
+            camera.y = lerp(camera.y, 0, time.dt * 10)
 
 
     def wake_up(self):
