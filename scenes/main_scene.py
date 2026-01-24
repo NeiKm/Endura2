@@ -19,7 +19,7 @@ class FlatWorld(Entity):
             model = "cube",
             texture = "white_cube",
             scale = (1, 1, 1),
-            position =  (0, 0, 0),
+            position =  (0, 0, 7),
             color = color.gray,
             parent = self
         )
