@@ -15,16 +15,22 @@ class Main:
         self.setup_light()
         self.scene = MainScene()
         self.menu = Entity(parent=camera.ui)
-        self.animate_camera_start()
+        # self.animate_camera_start()
 
     def setup_window(self):
+        window.entity_counter.enabled = False
+        window.collider_counter.enabled = False
+
+        window.render_mode = "wireframe"
         window.title = "Endura2"
         window.borderless = False
-        window.fullscreen = True if self.SETTINGS == "true" else False
-        window.size = (self.SETTINGS["graphics"]["resolution"][0], self.SETTINGS["graphics"]["resolution"][1])
+        if self.SETTINGS["graphics"]["fullscreen"]:
+            window.fullscreen = True
+        else:
+            window.size = (self.SETTINGS["graphics"]["resolution"][0], self.SETTINGS["graphics"]["resolution"][1])
         window.color = color.rgb(30, 30, 40)
         window.fps_counter.enabled = True
-        window.fps_counter.position = (0.0, 0.0)
+        window.fps_counter.position = (1, 1)
         window.collider_helper = True
 
     def setup_camera(self):
