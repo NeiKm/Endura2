@@ -18,12 +18,13 @@ class Player(FirstPersonController):
         self.jump_height = 2
         self.camera_pivot.y = 1.8
         self.height = 2
-        self.position = (0, 1, 0)
+        self.position = (0, 15, 0)
 
         # -------------------реализация состаяние граз-------------------
         self.eye_condition = False
         self.eye_busy = False
         self.eye_height = 1.01
+        self.eye_state = "open" # для переключения одной кнопкой
 
         self.top_eye = Entity(
             parent = camera.ui,
@@ -54,6 +55,9 @@ class Player(FirstPersonController):
 
     def update(self):
         super().update()
+        if held_keys["f"]:
+            self.position = (0, 1, 0)
+
         if held_keys["shift"]:
             self.speed = 8
         else:
@@ -68,9 +72,9 @@ class Player(FirstPersonController):
             mouse.locked = not mouse.locked
             self.cursor.visible = not self.cursor.visible
         if key == 'c':
-            self.eyes(movement = "close")
-        if key == 'o':
-            self.eyes(movement = "open")
+            self.eye_state = "close" if self.eye_state == "open" else "open" 
+            self.eyes(movement = self.eye_state)
+
 
 
     def camera_shaking(self):
