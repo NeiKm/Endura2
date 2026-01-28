@@ -9,7 +9,7 @@ class Main:
     def __init__(self):
         self.SETTINGS = load_settings()
         self.app = Ursina(multisample=True, development_mode=True)
-
+        self.ui_root = Entity(parent=camera.ui)
         self.setup_window()
         self.setup_camera()
         self.setup_light()
@@ -30,7 +30,7 @@ class Main:
             window.size = (self.SETTINGS["graphics"]["resolution"][0], self.SETTINGS["graphics"]["resolution"][1])
         window.color = color.rgb(30, 30, 40)
         window.fps_counter.enabled = True
-        window.fps_counter.position = (1, 1)
+        # window.fps_counter.position = (1, 1)
         window.collider_helper = True
 
     def setup_camera(self):
@@ -56,8 +56,10 @@ class Main:
         self.app.run()
 
 if __name__ == "__main__":
-    print(
-        "Этот файл нельзя запускать напрямую.\n"
-        "Для корректной работы, запускайте игру через launcher.py"
-    )
-    exit(1)
+    # print(
+    #     "Этот файл нельзя запускать напрямую.\n"
+    #     "Для корректной работы, запускайте игру через launcher.py"
+    # )
+    # exit(1)
+    game = Main()
+    game.run()

@@ -19,6 +19,7 @@ class Player(FirstPersonController):
         self.camera_pivot.y = 1.8
         self.height = 2
         self.position = (0, 15, 0)
+        self.fly_mode = [self.gravity, False]
 
         # -------------------реализация состаяние граз-------------------
         self.eye_condition = False
@@ -44,8 +45,23 @@ class Player(FirstPersonController):
             z=-1
         )
         invoke(self.wake_up, delay=0.1)
-        # self.dialog = False
-        # self.ui = self.UI()
+        # -------------------реализация состаяние диалога-------------------
+        self.dialog_fill_text = "asdadasdasdasda"
+        self.dialog_text = ""
+        self.dialog = False
+        self.text_index = 0
+        self.text_speed = 0.2
+        self.dialog_ui = Text(
+            text="",
+            parent=camera.ui,
+            scale=3,
+            color=color.black,
+            origin=(0, 0),
+            position=(0, -0.3),
+            enabled=False   # ← прячем
+        )
+
+
         self.default_shader = lit_with_shadows_shader
 
         self.shake_timer = 0
@@ -55,14 +71,27 @@ class Player(FirstPersonController):
 
     def update(self):
         super().update()
-        if held_keys["f"]:
-            self.position = (0, 1, 0)
 
-        if held_keys["shift"]:
-            self.speed = 8
+        if self.dialog:
+            self.dialog_ui.enabled = True
+
+            if self.text_index < len(self.dialog_fill_text):
+                self.text_index += self.text_speed
+                self.dialog_ui.text = self.dialog_fill_text[:int(self.text_index)]
         else:
-            self.speed = 5
-        self.camera_shaking()
+            self.dialog_ui.enabled = False
+
+        if held_keys["e"]:
+            self.position += Vec3(0, 0.5, 0)  
+        if held_keys["q"]:
+            self.position -= Vec3(0, 0.5, 0)  
+
+        if not self.fly_mode:
+            if held_keys["shift"]:
+                self.speed = 8
+            else:
+                self.speed = 5
+            self.camera_shaking()
     
 
     def input(self, key):
@@ -75,6 +104,20 @@ class Player(FirstPersonController):
             self.eye_state = "close" if self.eye_state == "open" else "open" 
             self.eyes(movement = self.eye_state)
 
+        if key == "r":
+            self.dialog = not self.dialog
+            if self.dialog:
+                self.text_index = 0
+                self.dialog_ui.text = ""
+
+        if key == "f":
+            self.fly_mode[1] = not self.fly_mode[1]
+            if self.fly_mode[1]:
+                self.gravity = 0
+                self.speed = 20
+            elif not self.fly_mode[1]:
+                self.speed = 5
+                self.gravity = self.fly_mode[0]
 
 
     def camera_shaking(self):
@@ -104,6 +147,7 @@ class Player(FirstPersonController):
 
         invoke(self._wake_phase_one, delay=0.4)
 
+
     def _wake_phase_one(self):
         h = self.eye_height * 0.4
 
@@ -120,6 +164,7 @@ class Player(FirstPersonController):
 
         invoke(self._wake_phase_two, delay=0.55)
 
+
     def _wake_phase_two(self):
         self.top_eye.animate(
             "scale_y", self.eye_height * 0.25,
@@ -133,6 +178,7 @@ class Player(FirstPersonController):
         )
 
         invoke(self._wake_phase_three, delay=0.15)
+
 
     def _wake_phase_three(self):
 
@@ -167,15 +213,17 @@ class Player(FirstPersonController):
         )
 
 
+    def dialogue_subtitles(self, full_text):
+        self.dialog_fill_text = full_text
+        self.text_index = 0
+        self.dialog_ui.text = ""
+        self.dialog = True
+
+
 
     def UI(self):
-        self.dialog_box = Entity(
-            parent=camera.ui,
-            model="cube",
-            color=color.gray,
-            scale=(1, 0.2, 1),
-            position=(0, -0.4)
-        )
+        if self.dialog:
+            pass
 
 
     def eyes(

@@ -1,5 +1,4 @@
 from ursina import *
-from render import Rendering
 
 class Camera(Entity):
 
@@ -96,3 +95,4 @@ class Camera(Entity):
 
             if key == "right mouse down":
                 mouse.locked = not mouse.locked
+                
