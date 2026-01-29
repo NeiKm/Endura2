@@ -47,52 +47,57 @@ class Camera(Entity):
 
     def input(self, key):
         print(self.cmd)
-        if not self.cmd:
-            if key == "=" and mouse.hovered_entity:
-                pos = mouse.hovered_entity.position + mouse.normal
-                self.entity.selected_block = self.entity.create_entity(
-                    pos=pos,
-                    scale=(self.entity.defolt_block_size, self.entity.defolt_block_size, self.entity.defolt_block_size), 
-                    color=self.entity.defolt_color
-                )
-            elif key == "-" and mouse.hovered_entity and mouse.hovered_entity != self.flor:
-                self.entity.entities.remove(mouse.hovered_entity)
-                destroy(mouse.hovered_entity)
-        
-            elif key == "scroll up":
-                self.entity.selected_block.scale += Vec3(0.2, 0.2, 0.2)
+        try:
+            if not self.cmd:
+                if key == "=" and mouse.hovered_entity:
+                    pos = mouse.hovered_entity.position + mouse.normal
+                    self.entity.selected_block = self.entity.create_entity(
+                        pos=pos,
+                        scale=(self.entity.defolt_block_size, self.entity.defolt_block_size, self.entity.defolt_block_size), 
+                        color=self.entity.defolt_color
+                    )
+                elif key == "-" and mouse.hovered_entity and mouse.hovered_entity != self.flor:
+                    self.entity.entities.remove(mouse.hovered_entity)
+                    destroy(mouse.hovered_entity)
 
-            elif key == "scroll down":
-                self.entity.selected_block.scale -= Vec3(0.2, 0.2, 0.2)
-        
-            elif key == "/":
-                print("scale: ", self.entity.selected_block.scale)
-                print("position: ", self.entity.selected_block.position)
+                elif key == "scroll up":
+                    self.entity.selected_block.scale += Vec3(0.2, 0.2, 0.2)
 
-            elif key == "m":
-                pass # обязательно сделать функционал сохранение мира
+                elif key == "scroll down":
+                    self.entity.selected_block.scale -= Vec3(0.2, 0.2, 0.2)
 
-            elif key == "z":
-                self.entity.selected_block.rotation += (10, 0, 0)
-            elif key == "x":
-                self.entity.selected_block.rotation += (0, 10, 0)
-            elif key == "c":
-                self.entity.selected_block.rotation += (0, 0, 10)
+                elif key == "/":
+                    print("scale: ", self.entity.selected_block.scale)
+                    print("position: ", self.entity.selected_block.position)
 
-            elif key == "up arrow":
-                self.entity.selected_block.position += (0, 0, 1)
-            elif key == "down arrow":
-                self.entity.selected_block.position += (0, 0, -1)
-            elif key == "left arrow":
-                self.entity.selected_block.position += (-1, 0, 0)
-            elif key == "right arrow":
-                self.entity.selected_block.position += (1, 0, 0)
+                elif key == "m":
+                    pass # обязательно сделать функционал сохранение мира
 
-            if key == "left mouse down" and mouse.hovered_entity:
-                if mouse.hovered_entity in self.entity.entities:
-                    self.entity.selected_block = mouse.hovered_entity
-                    print(f"выбран блок: {self.entity.selected_block}")
+                elif key == "z":
+                    self.entity.selected_block.rotation += (10, 0, 0)
+                elif key == "x":
+                    self.entity.selected_block.rotation += (0, 10, 0)
+                elif key == "c":
+                    self.entity.selected_block.rotation += (0, 0, 10)
 
-            if key == "right mouse down":
-                mouse.locked = not mouse.locked
+                elif key == "up arrow":
+                    self.entity.selected_block.position += (0, 0, 1)
+                elif key == "down arrow":
+                    self.entity.selected_block.position += (0, 0, -1)
+                elif key == "left arrow":
+                    self.entity.selected_block.position += (-1, 0, 0)
+                elif key == "right arrow":
+                    self.entity.selected_block.position += (1, 0, 0)
+
+                if key == "left mouse down" and mouse.hovered_entity:
+                    if mouse.hovered_entity in self.entity.entities:
+                        self.entity.selected_block = mouse.hovered_entity
+                        print(f"выбран блок: {self.entity.selected_block}")
+
+                if key == "right mouse down":
+                    mouse.locked = not mouse.locked
+                    
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            self.entity.selected_block = None
                 
