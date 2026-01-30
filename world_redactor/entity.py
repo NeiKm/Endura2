@@ -40,7 +40,7 @@ class EntityManager:
             texture = self.get_full_texture_path(texture)
 
         self.ent = Entity(
-            model ="cube",
+            model = "cube",
             texture = texture,
             texture_scale = texture_scale,
             rotation = rotation,
