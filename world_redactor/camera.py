@@ -1,7 +1,4 @@
 from ursina import *
-from json import dump
-from datetime import datetime
-import os
 
 class Camera(Entity):
 
@@ -74,33 +71,7 @@ class Camera(Entity):
                     print("position: ", self.entity.selected_block.position)
 
                 elif key == "m":
-                    folder = "saves"
-
-                    time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
-                    file_name = f"save_{time_stamp}.json"
-                    save_path = os.path.join(folder, file_name)
-
-                    data_to_save = []
-                    for ent in self.entity.entities:
-                        data_to_save.append({
-                            "model": [str(ent.model)],
-                            "texture": [str(ent.texture)],
-                            "texture_scale": [str(ent.texture_scale)],
-                            "rotation": [ent.rotation.x, ent.rotation.y, ent.rotation.z], 
-                            "position": [ent.x, ent.y, ent.z],
-                            "scale": [ent.scale.x, ent.scale.y],
-                            "color": [ent.color.r, ent.color.g, ent.color.b],
-                            "collider": [str(ent.collider)]
-                        })
-
-                    try:
-                        with open(save_path, "w") as save:
-                            dump(data_to_save, save, indent=4)
-        
-                        print(f"Cохранено в: {save_path}")
-                    except Exception as e:
-                        print(f"Ошибка при сохранении: {e}")
-                    
+                    self.entity.save_to_json()
 
                 elif key == "z":
                     self.entity.selected_block.rotation += (10, 0, 0)
