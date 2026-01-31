@@ -6,7 +6,18 @@ import math
 class Player(FirstPersonController):
 
     def __init__(self):
-        super().__init__()
+        super().__init__(
+            default_shader=lit_with_shadows_shader
+        )
+
+        self.player_model = Entity(
+            parent=self,
+            y=1,
+            z=-0.2,
+            scale=2,
+            rotation_y=-90,
+            model="static/3d_model/Player.glb",
+        )
 
         # Праметры
         self.cursor.visible = True
@@ -17,8 +28,6 @@ class Player(FirstPersonController):
         self.gravity = 0.5
         self.jump_height = 2
         self.camera_pivot.y = 1.8
-        self.height = 2
-        self.position = (0, 15, 0)
         self.fly_mode = [self.gravity, False]
 
         # -------------------реализация состаяние граз-------------------
@@ -60,9 +69,6 @@ class Player(FirstPersonController):
             position=(0, -0.3),
             enabled=False   # ← прячем
         )
-
-
-        self.default_shader = lit_with_shadows_shader
 
         self.shake_timer = 0
         self.shake_power = 0.06

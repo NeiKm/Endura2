@@ -21,7 +21,7 @@ class Main:
         window.entity_counter.enabled = False
         window.collider_counter.enabled = False
 
-        window.render_mode = "wireframe"
+        # window.render_mode = "wireframe"
         window.title = "Endura2"
         window.borderless = False
         if self.SETTINGS["graphics"]["fullscreen"]:
@@ -41,7 +41,7 @@ class Main:
         sun = DirectionalLight(
             shadows=True,
             rotation=(45, -45, 45),
-            shadow_resolution=(2048, 2048)
+            shadow_resolution=(4096, 4096)
         )
         sun.look_at(Vec3(1, -1, -1))
         sun.shadow_map_resolution = Vec2(4096, 4096)
