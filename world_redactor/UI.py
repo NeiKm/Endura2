@@ -28,11 +28,11 @@ class UI(Entity):
 
     def update(self):
         if self.cmd:
-            if self.input_.text and held_keys["f5"]:
-                self.command_handler.check_command(self.input_.text)
-                self.input.text = ""
+            pass
 
     def input(self, key):
+        if key == "`":
+            self.command_handler.processing_command(self.input_.text)
+            self.input_.text = ""
         if key == "alt":
             self.cmd_show()
-

@@ -13,11 +13,11 @@ class Main:
         self.path = str(Path(__file__).resolve())
         self.scene = Ursina(multisample=True, development_mode=True)
         self.rendering = Rendering()
-        self.command = CommandHandler(self.scene)
-        self.ui = UI(self.command, self.path)
-        self.cmd = self.ui.get_cmd_status()
         self.event = Event(self.scene)
         self.ent_man = EntityManager()
+        self.command = CommandHandler(self.scene, self.ent_man)
+        self.ui = UI(self.command, self.path)
+        self.cmd = self.ui.get_cmd_status()
         self.camera = Camera(self.ent_man, self.rendering.flor, self.ui)
 
     def draw_scene(self):

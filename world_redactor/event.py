@@ -1,6 +1,5 @@
 from ursina import *
 
-
 class Event:
     
     def __init__(self, scene):
@@ -12,10 +11,11 @@ class Event:
 
 class CommandHandler:
 
-    def __init__(self, scene):
+    def __init__(self, scene, ent_manager):
+        self.ent_manager = ent_manager
         self.scene = scene
 
-    def send_command(self, command: str):
+    def processing_command(self, command: str):
 
         if not command:
             return
@@ -27,8 +27,7 @@ class CommandHandler:
             case "move":
 
                 self.move_entity(
-                    name=parts[1],
-                    pos=Vec3(float(parts[2]), float(parts[3]), float(parts[4]))
+                    pos=Vec3(float(parts[1]), float(parts[2]), float(parts[3]))
                 )
 
             case "exit":
@@ -62,9 +61,7 @@ class CommandHandler:
             case _:
                 print(f"Неизвестная кмда {command}")
 
-    def move_entity(self, name: str, pos: Vec3):
-
-        entity = self.scene.get_entity(name)
-
-        if entity:
-            entity.position = pos
+    def move_entity(self, pos: Vec3):
+        print(self.ent_manager.selected_block)
+        if self.ent_manager.selected_block:
+            self.ent_manager.selected_block.position = pos
