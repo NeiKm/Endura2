@@ -2,6 +2,8 @@ from ursina import *
 from datetime import datetime
 import os
 from json import dump
+import json
+
 
 class EntityManager:
     def __init__(self):
@@ -10,6 +12,7 @@ class EntityManager:
         self.selected_block = None
         self.defolt_block_size = 1
         self.defolt_color = color.white
+        self.load_map()
 
     def add(self, entity):
         self.entities[entity.name] = entity
@@ -33,53 +36,98 @@ class EntityManager:
 
     def save_to_json(self):
         folder = "world_redactor"
+        os.makedirs(folder, exist_ok=True)
 
-        time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
-        file_name = f"save_{time_stamp}.json"
-        save_path = os.path.join(folder, file_name)
+        save_path = os.path.join(folder, "world.json")
 
         data_to_save = []
+
         for ent in self.entities:
             data_to_save.append({
-                "model": [str(ent.model)],
-                "texture": [str(ent.texture)],
-                "texture_scale": [str(ent.texture_scale)],
-                "rotation": [ent.rotation.x, ent.rotation.y, ent.rotation.z], 
+                "model": ent.model.name if hasattr(ent.model, "name") else "cube",
+
                 "position": [ent.x, ent.y, ent.z],
-                "scale": [ent.scale.x, ent.scale.y],
+                "rotation": [ent.rotation.x, ent.rotation.y, ent.rotation.z],
+                "scale": [ent.scale.x, ent.scale.y, ent.scale.z],
+
+                "texture": ent.texture.name if ent.texture else "white_cube",
+                "texture_scale": [ent.texture_scale[0], ent.texture_scale[1]],
+
                 "color": [ent.color.r, ent.color.g, ent.color.b],
-                "collider": [str(ent.collider)]
+                "collider": "box" if ent.collider else None
             })
 
         try:
-            with open(save_path, "w") as save:
-                dump(data_to_save, save, indent=4)
-        
-            print(f"Cохранено в: {save_path}")
+            with open(save_path, "w", encoding="utf-8") as save:
+                dump(data_to_save, save, indent=4, ensure_ascii=False)
+
+            print(f"Сохранено в: {save_path}")
+
         except Exception as e:
             print(f"Ошибка при сохранении: {e}")
 
-    def create_entity (
-        self, pos, 
-        scale = (1, 1, 1),
-        color = color.white,
-        rotation = (0, 0, 0), 
-        texture = "white_cube",
-        texture_scale = (1, 1)
-    ):
-        if isinstance(texture, str) and texture != "white_cube":
-            texture = self.get_full_texture_path(texture)
+    def load_map(self, filename="world.json"):
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        SAVE_PATH = os.path.join(BASE_DIR, filename)
 
-        self.ent = Entity(
-            model = "cube",
-            texture = texture,
-            texture_scale = texture_scale,
-            rotation = rotation,
-            position = pos,
-            scale = scale,
-            color = color,
-            collider = "box"
+        try:
+            with open(SAVE_PATH, "r", encoding="utf-8") as file:
+                data = json.load(file)
+
+            for block in data:
+                position = Vec3(*block["position"])
+                rotation = Vec3(*block["rotation"])
+                scale = tuple(block["scale"])
+
+                texture = block.get("texture", "white_cube")
+                texture_scale = tuple(block.get("texture_scale", (1, 1)))
+                collider = block.get("collider", "box")
+
+                color_data = block.get("color", [1, 1, 1])
+
+                if len(color_data) == 3:
+                    color_data.append(1)
+
+                color_val = color.rgba(
+                    color_data[0],
+                    color_data[1],
+                    color_data[2],
+                    color_data[3]
+                )
+
+                self.create_entity(
+                    pos=position,
+                    scale=scale,
+                    rotation=rotation,
+                    texture=texture,
+                    texture_scale=texture_scale,
+                    color=color_val,
+                    collider=collider
+                )
+
+        except FileNotFoundError as e:
+            print("Файл карты не найден\n>>>", e)
+
+    def create_entity(
+        self,
+        pos=(0, 0, 0),
+        scale=(1, 1, 1),
+        rotation=(0, 0, 0),
+        texture="white_cube",
+        texture_scale=(1, 1),
+        color=color.white,
+        collider="box"
+    ):
+        ent = Entity(
+            model="cube",
+            position=pos,
+            rotation=rotation,
+            scale=scale,
+            texture=texture,
+            texture_scale=texture_scale,
+            color=color,
+            collider=collider
         )
-        self.entities.append(self.ent)
-        self.ent.texture_scale = texture_scale
-        return self.ent
+
+        self.entities.append(ent)
+        return ent

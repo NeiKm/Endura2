@@ -67,7 +67,7 @@ class Player(FirstPersonController):
             color=color.black,
             origin=(0, 0),
             position=(0, -0.3),
-            enabled=False   # ← прячем
+            enabled=False   # <- Скрытие субтитров
         )
 
         self.shake_timer = 0
