@@ -32,7 +32,10 @@ class UI(Entity):
 
     def input(self, key):
         if key == "`":
-            self.command_handler.processing_command(self.input_.text)
-            self.input_.text = ""
+            try:
+                self.command_handler.processing_command(self.input_.text)
+                self.input_.text = ""
+            except Exception as e:
+                print(e)
         if key == "alt":
             self.cmd_show()
