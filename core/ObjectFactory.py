@@ -9,18 +9,20 @@ class ObjectFactory:
     """
 
     def __init__(self):
+        pass
+
+    def create_entity(self, **kwargs):
         self.default_color = color.white
-        self.default_scale = 1
+        self.default_scale = Vec3(1, 1, 1)
         self.default_shader = lit_with_shadows_shader
         self.default_collider = "box"
         self.default_texture_filter = "linear"
-
-    def create_entity(self, **kwargs):
+        
         color_val = kwargs.pop("color", self.default_color)
         scale_val = kwargs.pop("scale", self.default_scale)
         shader_val = kwargs.pop("shader", self.default_shader)
         collider_val = kwargs.pop("collider", self.default_collider)
-        texture_filter_val = kwargs.pop("texture_filter", self.default_texture_filter)
+        texture_filter_val = kwargs.pop("texture_filter", None)
 
         return Entity(
             color=color_val,

@@ -2,20 +2,21 @@ from ursina import *
 from core.ObjectFactory import ObjectFactory
 from entities.player import Player
 from ursina.shaders import lit_with_shadows_shader
+from core.utils import LoadMap
 
-class FlatWorld(Entity):
-    def __init__(self, factory):
+class FlatWorld(Entity, ObjectFactory):
+    def __init__(self):
         super().__init__()
         floor_size = 64
         spacing = 1
-        self.test_platform = factory.create_entity(
+        self.test_platform = self.create_entity(
             model="cube",
             texture = "grass",
             scale = (floor_size, 1, floor_size),
-            position = (0, -2, 0),
+            position = (0, -4, 0),
             parent = self
         )
-        self.test_cube = factory.create_entity(
+        self.test_cube = self.create_entity(
             model = "cube",
             texture = "white_cube",
             scale = (1, 1, 1),
@@ -32,15 +33,15 @@ class FlatWorld(Entity):
         # )
         
 
-class MainScene(Entity):
+class MainScene(Entity, LoadMap):
     def __init__(self):
         super().__init__()
 
         self.player = Player()
         self.factory = ObjectFactory()
 
-        self.world = FlatWorld(self.factory)
-
+        self.world = FlatWorld()
+        self.load_map("world.json")
         DirectionalLight(shadows=True, rotation=(45, -45, 45))
 
     def input(self, key):

@@ -38,14 +38,15 @@ class Main:
         camera.set_shader_input('contrast', 1)
 
     def setup_light(self):
+
+
         sun = DirectionalLight(
             shadows=True,
-            rotation=(45, -45, 45),
             shadow_resolution=(4096, 4096)
         )
         sun.look_at(Vec3(1, -1, -1))
         sun.shadow_map_resolution = Vec2(4096, 4096)
-        sun.shadow_bias = 0.5
+        sun.shadow_bias = 0.01
 
     def animate_camera_start(self):
         start_pos = Vec3(camera.position.x, camera.position.y + 5, camera.position.z - 15)

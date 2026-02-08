@@ -1,0 +1,43 @@
+from ursina import *
+import json
+import os
+
+
+class LoadMap():
+    def __init__(self):
+        pass
+
+    def load_map(self, path):
+        if not os.path.exists(path):
+            raise FileNotFoundError(f"Файл мира не найдн: {path}")
+
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        created_entities = []
+
+        for obj in data:
+            position = Vec3(*obj.get("position", [0, 0, 0]))
+            rotation = Vec3(*obj.get("rotation", [0, 0, 0]))
+            scale    = Vec3(*obj.get("scale",    [1, 1, 1]))
+
+            col = obj.get("color", [1, 1, 1])
+            if max(col) <= 1:
+                color_val = color.rgb(int(col[0]*255), int(col[1]*255), int(col[2]*255))
+            else:
+                color_val = color.rgb(int(col[0]), int(col[1]), int(col[2]))
+
+            entity = Entity(
+                model=obj.get("model", "cube"),
+                position=position,
+                rotation=rotation,
+                scale=scale,
+                texture=obj.get("texture", None),
+                color=color_val,
+                collider=obj.get("collider", None)
+            )
+
+            created_entities.append(entity)
+
+        return created_entities
+    

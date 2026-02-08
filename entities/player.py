@@ -6,10 +6,7 @@ import math
 class Player(FirstPersonController):
 
     def __init__(self):
-        super().__init__(
-            default_shader=lit_with_shadows_shader
-        )
-
+        super().__init__()
         self.player_model = Entity(
             parent=self,
             y=1,
@@ -17,6 +14,9 @@ class Player(FirstPersonController):
             scale=2,
             rotation_y=-90,
             model="static/3d_model/Player.glb",
+            shader = lit_with_shadows_shader,
+            cast_shadows=True,
+            receive_shadows=True
         )
 
         # Праметры
@@ -94,7 +94,7 @@ class Player(FirstPersonController):
 
         if not self.fly_mode:
             if held_keys["shift"]:
-                self.speed = 8
+                self.speed = 10
             else:
                 self.speed = 5
             self.camera_shaking()
