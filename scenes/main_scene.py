@@ -7,30 +7,64 @@ from core.utils import LoadMap
 class FlatWorld(Entity, ObjectFactory):
     def __init__(self):
         super().__init__()
-        floor_size = 64
-        spacing = 1
-        self.test_platform = self.create_entity(
-            model="cube",
-            texture = "grass",
-            scale = (floor_size, 1, floor_size),
-            position = (0, -4, 0),
-            parent = self
-        )
-        self.test_cube = self.create_entity(
+        
+        self.room_floor = self.create_entity(
             model = "cube",
             texture = "white_cube",
-            scale = (1, 1, 1),
-            position =  (0, 0, 7),
+            scale = (10, 1, 10),
+            position =  (0, 0, 0),
             color = color.gray,
             parent = self
         )
-        # world = factory.create_entity(
-        #     model='vr_modern_gallery_room (1).glb',
-        #     scale=1.5,
-        #     position=(0, 0, 0),
-        #     double_sided=True,
-        #     collider='box'
-        # )
+        self.room_wall1 = self.create_entity(
+            model = "cube",
+            texture = "white_cube",
+            scale = (1, 6, 10),
+            position =  (5.3, 3, 0),
+            color = color.gray,
+            parent = self
+        )
+        self.room_wall2 = self.create_entity(
+            model = "cube",
+            texture = "white_cube",
+            scale = (10, 6, 1),
+            position =  (0, 3, 5.3),
+            color = color.gray,
+            parent = self
+        )
+        self.room_wall3 = self.create_entity(
+            model = "cube",
+            texture = "white_cube",
+            scale = (1, 6, 10),
+            position =  (-5.3, 3, 0),
+            color = color.gray,
+            parent = self
+        )
+        self.room_wall4 = self.create_entity(
+            model = "cube",
+            texture = "white_cube",
+            scale = (10, 6, 1),
+            position =  (0, 3, -5.3),
+            color = color.gray,
+            parent = self
+        )
+        self.room_ceiling = self.create_entity(
+            model = "cube",
+            texture = "white_cube",
+            scale = (10, 1, 10),
+            position =  (0, 5.5, 0),
+            color = color.gray,
+            parent = self
+        )
+        self.room_poster = self.create_entity(
+            model = "quad",
+            texture = "white_cube",
+            scale = (1, 1.8, 1),
+            position =  (0, 2, 4.),
+            color = color.white,
+            parent = self
+        )
+        
         
 
 class MainScene(Entity, LoadMap):
@@ -41,12 +75,9 @@ class MainScene(Entity, LoadMap):
         self.factory = ObjectFactory()
 
         self.world = FlatWorld()
-        self.load_map("world.json")
+        # self.load_map("world.json")
         DirectionalLight(shadows=True, rotation=(45, -45, 45))
 
     def input(self, key):
         if key == "escape":
             application.quit()
-
-    def update(self):
-        self.world.test_cube.rotation += Vec3(30, 60, 0) * time.dt

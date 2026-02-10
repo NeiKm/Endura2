@@ -27,7 +27,7 @@ class Player(FirstPersonController):
         self.speed = 5
         self.gravity = 0.5
         self.jump_height = 2
-        self.camera_pivot.y = 1.8
+        self.camera_pivot.y = 1.85
         self.fly_mode = [self.gravity, False]
 
         # -------------------реализация состаяние граз-------------------
@@ -41,7 +41,7 @@ class Player(FirstPersonController):
             model = "quad",
             color = color.black,
             scale = (2, self.eye_height),
-            position = (0,  0.5),
+            position = (0,  1),
             z=-1
         )
 

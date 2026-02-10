@@ -16,7 +16,7 @@ class UI(Entity):
         if not self.cmd:
             self.input_ = InputField(
                 scale=(1.5, .9),
-                default_value=self.path,
+                default_value="set color_a 0.5 0.5 0.5 1.0",
                 max_lines = 10,
                 text_color=color.white
             )

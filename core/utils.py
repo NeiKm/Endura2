@@ -21,11 +21,9 @@ class LoadMap():
             rotation = Vec3(*obj.get("rotation", [0, 0, 0]))
             scale    = Vec3(*obj.get("scale",    [1, 1, 1]))
 
-            col = obj.get("color", [1, 1, 1])
-            if max(col) <= 1:
-                color_val = color.rgb(int(col[0]*255), int(col[1]*255), int(col[2]*255))
-            else:
-                color_val = color.rgb(int(col[0]), int(col[1]), int(col[2]))
+            col = obj.get("color", [1.0, 1.0, 1.0])
+
+            color_val = color.rgb(float(col[0]), float(col[1]), float(col[2]))
 
             entity = Entity(
                 model=obj.get("model", "cube"),
