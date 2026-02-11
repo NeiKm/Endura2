@@ -61,6 +61,12 @@ class CommandHandler:
                 destroy(self.ent_manager.selected_block)
 
             case "copy":
+                self.ent_manager.create_entity(
+                    scale = self.ent_manager.selected_block.scale,
+                    pos = self.ent_manager.selected_block.position,
+                    rotation = self.ent_manager.selected_block.rotation,
+                    texture = self.ent_manager.selected_block.texture
+                )
                 self.copy_entity()
 
             case _:
@@ -73,17 +79,25 @@ class CommandHandler:
         self.ent_manager.selected_block.rotation = rot
 
     def copy_entity(self):
-        sel_entity = self.ent_manager.selected_block
 
-        new_entity = self.ent_manager.create_entity(
-            pos=sel_entity.position,
-            scale=sel_entity.scale,
-            rotation=sel_entity.rotation,
-            texture=sel_entity.texture,
-            texture_scale=sel_entity.texture_scale,
-            color=sel_entity.color,
-            collider=sel_entity.collider
+        self.ent_manager.create_entity(
+            scale = self.ent_manager.selected_block.scale,
+            pos = self.ent_manager.selected_block.position,
+            rotation = self.ent_manager.selected_block.rotation,
+            texture = self.ent_manager.selected_block.texture
         )
-        new_entity.y += sel_entity.scale.y
 
-        self.ent_manager.selected_block= new_entity
+        # sel_entity = self.ent_manager.selected_block
+
+        # new_entity = self.ent_manager.create_entity(
+        #     pos=sel_entity.position,
+        #     scale=sel_entity.scale,
+        #     rotation=sel_entity.rotation,
+        #     texture=sel_entity.texture,
+        #     texture_scale=sel_entity.texture_scale,
+        #     color=sel_entity.color,
+        #     collider=sel_entity.collider
+        # )
+        # new_entity.y += sel_entity.scale.y
+
+        # self.ent_manager.selected_block= new_entity

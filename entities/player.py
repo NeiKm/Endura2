@@ -20,6 +20,7 @@ class Player(FirstPersonController):
         )
 
         # Праметры
+        self.position = (0, -1, 0)
         self.cursor.visible = True
         self.cursor.scale = 0.004
         self.cursor.model = "circle"
@@ -41,7 +42,7 @@ class Player(FirstPersonController):
             model = "quad",
             color = color.black,
             scale = (2, self.eye_height),
-            position = (0,  1),
+            position = (0,  0.5),
             z=-1
         )
 

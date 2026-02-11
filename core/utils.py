@@ -1,4 +1,5 @@
 from ursina import *
+from ursina.shaders import lit_with_shadows_shader
 import json
 import os
 
@@ -32,7 +33,8 @@ class LoadMap():
                 scale=scale,
                 texture=obj.get("texture", None),
                 color=color_val,
-                collider=obj.get("collider", None)
+                collider=obj.get("collider", None),
+                shader = lit_with_shadows_shader
             )
 
             created_entities.append(entity)

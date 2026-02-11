@@ -80,14 +80,28 @@ class Camera(Entity):
                 elif key == "c":
                     self.entity.selected_block.rotation += (0, 0, 10)
 
+                elif key == "5":
+                    self.entity.selected_block.scale += (0.25, 0, 0)
+                elif key == "6":
+                    self.entity.selected_block.scale += (0, 0.25, 0)
+                elif key == "7":
+                    self.entity.selected_block.scale += (0, 0, 0.25)
+
+                elif key == "8":
+                    self.entity.selected_block.scale -= (0.25, 0, 0)
+                elif key == "9":
+                    self.entity.selected_block.scale -= (0, 0.25, 0)
+                elif key == "0":
+                    self.entity.selected_block.scale -= (0, 0, 0.25)
+
                 elif key == "up arrow":
-                    self.entity.selected_block.position += (0, 0, 1)
+                    self.entity.selected_block.position += (0, 0, 0.5)
                 elif key == "down arrow":
-                    self.entity.selected_block.position += (0, 0, -1)
+                    self.entity.selected_block.position += (0, 0, -0.5)
                 elif key == "left arrow":
-                    self.entity.selected_block.position += (-1, 0, 0)
+                    self.entity.selected_block.position += (-0.5, 0, 0)
                 elif key == "right arrow":
-                    self.entity.selected_block.position += (1, 0, 0)
+                    self.entity.selected_block.position += (0.5, 0, 0)
 
                 if key == "left mouse down" and mouse.hovered_entity:
                     if mouse.hovered_entity in self.entity.entities:
