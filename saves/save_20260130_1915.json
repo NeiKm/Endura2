@@ -1,0 +1,167 @@
+[
+    {
+        "model": [
+            "render/scene/entity/cube"
+        ],
+        "texture": [
+            "white_cube.png"
+        ],
+        "texture_scale": [
+            "Vec2(1, 1)"
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "position": [
+            0.0,
+            -3.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": [
+            "box"
+        ]
+    },
+    {
+        "model": [
+            "render/scene/entity/cube"
+        ],
+        "texture": [
+            "white_cube.png"
+        ],
+        "texture_scale": [
+            "Vec2(1, 1)"
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "position": [
+            0.0,
+            -2.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": [
+            "box"
+        ]
+    },
+    {
+        "model": [
+            "render/scene/entity/cube"
+        ],
+        "texture": [
+            "white_cube.png"
+        ],
+        "texture_scale": [
+            "Vec2(1, 1)"
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "position": [
+            0.0,
+            -1.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            255.0,
+            255.0,
+            0.0
+        ],
+        "collider": [
+            "box"
+        ]
+    },
+    {
+        "model": [
+            "render/scene/entity/cube"
+        ],
+        "texture": [
+            "white_cube.png"
+        ],
+        "texture_scale": [
+            "Vec2(1, 1)"
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "position": [
+            1.0,
+            -3.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": [
+            "box"
+        ]
+    },
+    {
+        "model": [
+            "render/scene/entity/cube"
+        ],
+        "texture": [
+            "white_cube.png"
+        ],
+        "texture_scale": [
+            "Vec2(1, 1)"
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "position": [
+            -1.0,
+            -3.0,
+            0.0
+        ],
+        "scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": [
+            "box"
+        ]
+    }
+]
