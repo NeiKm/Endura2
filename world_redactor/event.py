@@ -61,7 +61,7 @@ class CommandHandler:
                 destroy(self.ent_manager.selected_block)
 
             case "copy":
-                self.copy_selected_entity()
+                self.copy_entity()
 
             case _:
                 print(f"Неизвестная команда {command}")
@@ -73,7 +73,7 @@ class CommandHandler:
         self.ent_manager.selected_block.rotation = rot
 
     def copy_entity(self):
-        sel_entity = self.ent_manager.selected_entity
+        sel_entity = self.ent_manager.selected_block
 
         new_entity = self.ent_manager.create_entity(
             pos=sel_entity.position,
@@ -86,4 +86,4 @@ class CommandHandler:
         )
         new_entity.y += sel_entity.scale.y
 
-        self.ent_manager.selected_entity = new_entity
+        self.ent_manager.selected_block= new_entity
