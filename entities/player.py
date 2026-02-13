@@ -19,7 +19,7 @@ class Player(FirstPersonController):
             receive_shadows=True
         )
 
-        # Праметры
+        # Праметры игрка
         self.position = (0, -1, 0)
         self.cursor.visible = True
         self.cursor.scale = 0.004
@@ -32,30 +32,29 @@ class Player(FirstPersonController):
         self.fly_mode = [self.gravity, False]
 
         # -------------------реализация состаяние граз-------------------
-        self.eye_condition = False
-        self.eye_busy = False
         self.eye_height = 1.01
-        self.eye_state = "open" # для переключения одной кнопкой
+        self.eye_state = "closed"
+        self.eye_animating = False
 
         self.top_eye = Entity(
-            parent = camera.ui,
-            model = "quad",
-            color = color.black,
-            scale = (2, self.eye_height),
-            position = (0,  0.5),
+            parent=camera.ui,
+            model="quad",
+            color=color.black,
+            scale=(2, self.eye_height),
+            position=(0, 0.5),
             z=-1
         )
 
         self.bottom_eye = Entity(
-            parent = camera.ui,
-            model = "quad",
-            color = color.black,
-            scale = (2, self.eye_height),
-            position = (0, -0.5),
+            parent=camera.ui,
+            model="quad",
+            color=color.black,
+            scale=(2, self.eye_height),
+            position=(0, -0.5),
             z=-1
         )
-        invoke(self.wake_up, delay=0.1)
-        # -------------------реализация состаяние диалога-------------------
+        # invoke(self.wake_up, delay=0.1)
+        # -------------------параметры диалога-------------------
         self.dialog_fill_text = "asdadasdasdasda"
         self.dialog_text = ""
         self.dialog = False
@@ -75,6 +74,40 @@ class Player(FirstPersonController):
         self.shake_power = 0.06
         self.shake_speed = 12
 
+        # -------------------параметры стамины/бега-------------------
+        self.stamina = 100
+        self.max_stamina = 100
+
+        self.stamina_drain = 25
+        self.stamina_regen = 15
+        self.stamina_regen_delay = 1
+
+        self.can_run = True
+        self.last_run_time = 0
+
+        self.last_stamina_value = self.stamina
+        self.stamina_visible_timer = 0
+        self.stamina_fade_delay = 1
+
+        self.stamina_bar_bg = Entity(
+            parent=camera.ui,
+            model='quad',
+            color=color.gray,
+            scale=(0.4, 0.03),
+            position=(0, -0.45)
+        )
+
+        self.stamina_bar = Entity(
+            parent=self.stamina_bar_bg,
+            model='quad',
+            color=color.blue,
+            scale=(1, 1),
+            position=(-0.5, 0),
+            origin=(-0.5, 0)
+        )
+        self.stamina_bar_bg.alpha = 0
+        self.stamina_bar.alpha = 0
+
 
     def update(self):
         super().update()
@@ -93,12 +126,30 @@ class Player(FirstPersonController):
         if held_keys["q"]:
             self.position -= Vec3(0, 0.5, 0)  
 
-        if not self.fly_mode:
-            if held_keys["shift"]:
+        if not self.fly_mode[1]:
+            is_moving = self.direction.length() > 0 and self.grounded
+            running = held_keys["shift"] and is_moving and self.can_run
+
+            if running:
                 self.speed = 10
+                self.stamina -= self.stamina_drain * time.dt
+                self.last_run_time = time.time()
+
+                if self.stamina <= 0:
+                    self.stamina = 0
+                    self.can_run = False
+
             else:
                 self.speed = 5
-            self.camera_shaking()
+
+            if not running:
+                if time.time() - self.last_run_time > self.stamina_regen_delay:
+                    self.stamina += self.stamina_regen * time.dt
+                    if self.stamina >= self.max_stamina:
+                        self.stamina = self.max_stamina
+                        self.can_run = True
+
+        self.UI(held_keys["shift"])
     
 
     def input(self, key):
@@ -108,8 +159,11 @@ class Player(FirstPersonController):
             mouse.locked = not mouse.locked
             self.cursor.visible = not self.cursor.visible
         if key == 'c':
-            self.eye_state = "close" if self.eye_state == "open" else "open" 
-            self.eyes(movement = self.eye_state)
+            if self.eye_state == "open":
+                self.close_eyes()
+            else:
+                self.open_eyes()
+
 
         if key == "r":
             self.dialog = not self.dialog
@@ -142,82 +196,22 @@ class Player(FirstPersonController):
             camera.y = lerp(camera.y, 0, time.dt * 10)
 
 
-    def wake_up(self):
-
-        if self.eye_busy:
-            return
+    def wake_up(self, with_blink=True):
         camera.fov = 120
-        camera.animate("fov", 90, duration = 2, curve = curve.out_quad)
-        # camera.shake(duration=1, magnitude=0.5)
-        self.eye_busy = True
-        self.eye_condition = False
-
-        invoke(self._wake_phase_one, delay=0.4)
-
-
-    def _wake_phase_one(self):
-        h = self.eye_height * 0.4
-
-        self.top_eye.animate(
-            "scale_y", h,
-            duration=0.5,
-            curve=curve.out_expo
-        )
-        self.bottom_eye.animate(
-            "scale_y", h,
-            duration=0.5,
-            curve=curve.out_expo
-        )
-
-        invoke(self._wake_phase_two, delay=0.55)
+        camera.animate("fov", 90, duration=2, curve=curve.out_quad)
+    
+        invoke(self.open_eyes, delay=0.4)
+    
+        if with_blink:
+            invoke(self.blink, delay=1.2)
 
 
-    def _wake_phase_two(self):
-        self.top_eye.animate(
-            "scale_y", self.eye_height * 0.25,
-            duration=0.12,
-            curve=curve.in_out_sine
-        )
-        self.bottom_eye.animate(
-            "scale_y", self.eye_height * 0.25,
-            duration=0.12,
-            curve=curve.in_out_sine
-        )
+    def blink(self, duration=0.15):
+        if self.eye_animating:
+            return
 
-        invoke(self._wake_phase_three, delay=0.15)
-
-
-    def _wake_phase_three(self):
-
-        self.top_eye.animate(
-            "scale_y", 0,
-            duration=0.35,
-            curve=curve.out_cubic
-        )
-        self.bottom_eye.animate(
-            "scale_y", 0,
-            duration=0.35,
-            curve=curve.out_cubic
-        )
-
-        self.eye_condition = True
-        invoke(
-            setattr, self, 
-            "eye_busy", False, 
-            delay=0.1
-        )
-        invoke(
-            self.eyes,
-            movement = "close",
-            duration = 0.25,
-            delay = 0.11
-        )
-        invoke(
-            self.eyes,
-            movement = "open",
-            duration = 0.25,
-            delay = 0.20
-        )
+        self.close_eyes(duration)
+        invoke(self.open_eyes, delay=duration + 0.02)
 
 
     def dialogue_subtitles(self, full_text):
@@ -227,66 +221,58 @@ class Player(FirstPersonController):
         self.dialog = True
 
 
+    def UI(self, trying_to_run=False):
+        percent = self.stamina / self.max_stamina
+        self.stamina_bar.scale_x = percent
 
-    def UI(self):
-        if self.dialog:
-            pass
+        if trying_to_run or self.stamina < self.max_stamina:
+            self.stamina_visible_timer = 0
+            self.stamina_bar_bg.alpha = 1
+            self.stamina_bar.alpha = 1
+        else:
+            self.stamina_visible_timer += time.dt
+
+            if self.stamina_visible_timer > self.stamina_fade_delay:
+                self.stamina_bar_bg.alpha = lerp(self.stamina_bar_bg.alpha, 0, time.dt * 4)
+                self.stamina_bar.alpha = lerp(self.stamina_bar.alpha, 0, time.dt * 4)
 
 
-    def eyes(
-            self,
-            movement = "open",
-            blur = False,
-            blur_power = 0.1,
-            effect_type = None,
-            duration = 0.5
-    ):
-        if self.eye_busy:
+
+    def _animate_eyes(self, target_scale, duration):
+        self.eye_animating = True
+        self.target_eye_scale = target_scale
+
+        self.top_eye.animate(
+            "scale_y",
+            target_scale,
+            duration=duration,
+            curve=curve.out_expo
+        )
+
+        self.bottom_eye.animate(
+            "scale_y",
+            target_scale,
+            duration=duration,
+            curve=curve.out_expo
+        )
+
+        invoke(self._finish_eye_animation, delay=duration)
+
+
+    def _finish_eye_animation(self):
+        self.eye_animating = False
+        self.eye_state = "open" if self.target_eye_scale == 0 else "closed"
+
+
+    def open_eyes(self, duration=0.4):
+        if self.eye_animating or self.eye_state == "open":
             return
-        
 
-        if movement == "close" and self.eye_condition:
-            self.top_eye.scale_y = 0
-            self.bottom_eye.scale_y = 0
+        self._animate_eyes(0, duration)
 
-            self.top_eye.animate(
-                "scale_y", 
-                self.eye_height,
-                curve = curve.out_expo,
-                duration=duration
-            )
-            self.bottom_eye.animate(
-                "scale_y", 
-                self.eye_height,
-                curve = curve.out_expo,
-                duration=duration
-            )
 
-            self.eye_condition = False
-            invoke(
-                setattr, self, 
-                "eye_busy", False, 
-                delay = duration
-            )
-        elif movement == "open" and not self.eye_condition:
-            self.top_eye.animate(
-                "scale_y", 
-                0,
-                curve = curve.out_expo,
-                duration = duration,
-            )
-            self.bottom_eye.animate(
-                "scale_y", 
-                0,
-                curve = curve.out_expo,
-                duration = duration
-            )
+    def close_eyes(self, duration=0.4):
+        if self.eye_animating or self.eye_state == "closed":
+            return
 
-            self.eye_condition = True
-
-            invoke(
-                setattr, self, 
-                "eye_busy", False, 
-                delay = duration
-            )
-        return
+        self._animate_eyes(self.eye_height, duration)

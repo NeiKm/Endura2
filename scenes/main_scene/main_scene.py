@@ -62,6 +62,19 @@ class Object(Entity, ObjectFactory, LoadMap):
     
     def update(self):
         pass
+
+
+class MainCutScene(Entity):
+    def __init__(self, player):
+        super().__init__()
+        self.player = player
+        invoke(self.wake_up_, delay=1)
+
+    def wake_up_(self):
+        self.player.wake_up(with_blink=False)
+
+    def close_eyes_(self):
+        self.player.close_eyes()
         
 
 class MainScene(Object):
@@ -69,11 +82,14 @@ class MainScene(Object):
         super().__init__()
 
         self.player = Player()
-        self.factory = ObjectFactory()
+        self.cut_scene = MainCutScene(self.player)
+
         self.setup_light()
-        # self.setup_room_light()
+        self.setup_sounds()
+
         invoke(self.table_glith_1, delay=1)
         invoke(self.sky_glith_1, delay=1)
+
 
     def setup_light(self):
         sun = DirectionalLight(
@@ -83,6 +99,13 @@ class MainScene(Object):
         sun.look_at(Vec3(1, -1, -1))
         sun.shadow_map_resolution = Vec2(4096, 4096)
         sun.shadow_bias = 0.01
+
+    def setup_sounds(self):
+        self.bg_music = Audio(
+            "static/sounds/music/first_scene_bg.mp3",
+            loop=True,
+            autoplay=True
+        )
 
     def setup_room_light(parent=None):
         light = PointLight(
