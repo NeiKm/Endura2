@@ -108,6 +108,83 @@ class Player(FirstPersonController):
         self.stamina_bar_bg.alpha = 0
         self.stamina_bar.alpha = 0
 
+        #-------------------параметры инвентаря-------------------
+
+        self.inventory_open = False
+        self.inventory_slots = 8
+        self.inventory = []
+
+        self.inventory_ui = Entity(
+            parent=camera.ui,
+            enabled=False
+        )
+
+        self.inventory_bg = Entity(
+            parent=self.inventory_ui,
+            model='quad',
+            color=color.rgba(20,20,20,220),
+            scale=(0.6, 0.6),
+            position=(0, 0)
+        )
+        self.inventory_bg.alpha = 0.5
+        self.slot_entities = []
+
+        for i in range(self.inventory_slots):
+            row = i // 4
+            col = i % 4
+
+            slot = Entity(
+                parent=self.inventory_ui,
+                model='quad',
+                color=color.gray,
+                scale=(0.12, 0.12),
+                position=(-0.22 + col*0.15, 0.2 - row*0.15)
+            )
+
+            slot.text = Text(
+                parent=slot,
+                text="",
+                origin=(0,0),
+                scale=2,
+                color=color.white
+            )
+
+            self.slot_entities.append(slot)
+
+    def toggle_inventory(self):
+        self.inventory_open = not self.inventory_open
+        self.inventory_ui.enabled = self.inventory_open
+
+
+    def add_item(self, item_name):
+        if len(self.inventory) >= self.inventory_slots:
+            print("Инвентарь заполнен")
+            return False
+
+        self.inventory.append(item_name)
+        self.update_inventory_ui()
+        print(f"Добавлен предмет: {item_name}")
+        return True
+
+
+    def remove_item(self, item_name):
+        if item_name in self.inventory:
+            self.inventory.remove(item_name)
+            self.update_inventory_ui()
+            print(f"Удалён предмет: {item_name}")
+            return True
+
+        print("Предмет не найден")
+        return False
+
+
+    def update_inventory_ui(self):
+        for i in range(self.inventory_slots):
+            if i < len(self.inventory):
+                self.slot_entities[i].text.text = self.inventory[i]
+            else:
+                self.slot_entities[i].text.text = ""
+
 
     def update(self):
         super().update()
@@ -164,6 +241,11 @@ class Player(FirstPersonController):
             else:
                 self.open_eyes()
 
+        if key == "tab":
+            mouse.locked = not mouse.locked
+            self.cursor.visible = not self.cursor.visible
+            self.toggle_inventory()
+
 
         if key == "r":
             self.dialog = not self.dialog
@@ -179,6 +261,9 @@ class Player(FirstPersonController):
             elif not self.fly_mode[1]:
                 self.speed = 5
                 self.gravity = self.fly_mode[0]
+
+        if key == "l":
+            self.gravity = -1
 
 
     def camera_shaking(self):
@@ -196,11 +281,11 @@ class Player(FirstPersonController):
             camera.y = lerp(camera.y, 0, time.dt * 10)
 
 
-    def wake_up(self, with_blink=True):
+    def wake_up(self, with_blink=True, duration=2):
         camera.fov = 120
         camera.animate("fov", 90, duration=2, curve=curve.out_quad)
     
-        invoke(self.open_eyes, delay=0.4)
+        invoke(self.open_eyes, delay=0.4, duration=duration)
     
         if with_blink:
             invoke(self.blink, delay=1.2)
@@ -235,7 +320,6 @@ class Player(FirstPersonController):
             if self.stamina_visible_timer > self.stamina_fade_delay:
                 self.stamina_bar_bg.alpha = lerp(self.stamina_bar_bg.alpha, 0, time.dt * 4)
                 self.stamina_bar.alpha = lerp(self.stamina_bar.alpha, 0, time.dt * 4)
-
 
 
     def _animate_eyes(self, target_scale, duration):

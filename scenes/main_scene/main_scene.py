@@ -3,6 +3,7 @@ from core.ObjectFactory import ObjectFactory
 from entities.player import Player
 from ursina.shaders import lit_with_shadows_shader
 from core.utils import LoadMap
+from ursina.physics import *
 
 class Object(Entity, ObjectFactory, LoadMap): 
     def __init__(self): 
@@ -71,7 +72,7 @@ class MainCutScene(Entity):
         invoke(self.wake_up_, delay=1)
 
     def wake_up_(self):
-        self.player.wake_up(with_blink=False)
+        self.player.wake_up(with_blink=False, duration=6)
 
     def close_eyes_(self):
         self.player.close_eyes()
@@ -83,6 +84,7 @@ class MainScene(Object):
 
         self.player = Player()
         self.cut_scene = MainCutScene(self.player)
+        # self.player.add_item("Веревка") ИСПРАВИТЬ (ДОБАВЛЕНИЕ ПРЕДМЕТОВ НЕ РАБОТАЕТ)
 
         self.setup_light()
         self.setup_sounds()
@@ -121,4 +123,15 @@ class MainScene(Object):
             application.quit()
 
     def update(self):
-        pass
+        self.ray = raycast(
+            origin=camera.world_position,
+            direction=camera.forward,
+            distance=2,
+            ignore=(self.player,)
+        )
+        if self.ray.hit and self.ray.entity == self.world[12] or self.ray.entity == self.world[11]:
+            self.world[12].color = color.green
+            self.world[11].color = color.green
+        else:
+            self.world[12].color = color.white
+            self.world[11].color = color.white
