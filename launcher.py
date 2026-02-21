@@ -9,7 +9,7 @@ app = Ursina()
 if random.random() > 0.66:
     model = Entity(model='static/3d_model/key.obj', color=color.yellow, scale=3)
 elif random.random() < 0.33:
-    model = Entity(model='static/3d_model/key.obj', color=color.yellow, scale=3)
+    model = Entity(model='static/3d_model/Secret_key.obj', color=color.yellow, scale=3)
 else:
     model = Entity(model='static/3d_model/Player.glb', scale=3)
 
