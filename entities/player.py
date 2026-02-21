@@ -19,6 +19,21 @@ class Player(FirstPersonController):
             receive_shadows=True
         )
 
+        self.item_in_hand = {
+            "model": "static/3d_model/secret_key.obj",
+            "scale": (0.2, 0.2, 0.6),
+            "rotation": (0, 180, -45),
+            "position": (0.5, -0.35)
+        }
+        self.hand = Entity(
+            parent=camera.ui,
+            color=color.yellow,
+            model=self.item_in_hand["model"],
+            scale=self.item_in_hand["scale"],
+            rotation=self.item_in_hand["rotation"],
+            position=self.item_in_hand["position"]
+        )
+
         # Праметры игрка
         self.position = (0, -1, 0)
         self.cursor.visible = True
@@ -165,7 +180,7 @@ class Player(FirstPersonController):
 
             slot.text = Text(
                 parent=self.inventory_ui,
-                text="Верёвка",
+                text="",
                 origin=(0, 0),
                 scale=1,
                 color=color.white,
