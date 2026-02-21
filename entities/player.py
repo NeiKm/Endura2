@@ -127,26 +127,50 @@ class Player(FirstPersonController):
             position=(0, 0)
         )
         self.inventory_bg.alpha = 0.5
+
+        self.inventory_title_bg = Entity(
+            parent=self.inventory_ui,
+            model='quad',
+            color=color.dark_gray,
+            scale=(0.3, 0.08),
+            position=(0, 0.35)
+        )
+
+        self.inventory_title_text = Text(
+            text="Inventory",
+            parent=self.inventory_ui,
+            origin=(0, 0),
+            scale=2,
+            color=color.white,
+            position=(0, 0.35),
+            z=-0.1
+        )
+
         self.slot_entities = []
 
         for i in range(self.inventory_slots):
             row = i // 4
             col = i % 4
+            
+            slot_pos = (-0.22 + col * 0.15, 0.2 - row * 0.15)
 
             slot = Entity(
                 parent=self.inventory_ui,
                 model='quad',
                 color=color.gray,
                 scale=(0.12, 0.12),
-                position=(-0.22 + col*0.15, 0.2 - row*0.15)
+                position=slot_pos,
+                z=0
             )
 
             slot.text = Text(
-                parent=slot,
-                text="",
-                origin=(0,0),
-                scale=2,
-                color=color.white
+                parent=self.inventory_ui,
+                text="Верёвка",
+                origin=(0, 0),
+                scale=1,
+                color=color.white,
+                position=slot_pos,
+                z=-0.1  
             )
 
             self.slot_entities.append(slot)
