@@ -2,7 +2,7 @@ from ursina import *
 from core.settings import *
 from ursina.shaders import camera_contrast_shader
 from settings import load_settings
-from scenes.main_scene.main_scene import MainScene
+from scenes.main_scene import MainScene
 
 
 class Main:
