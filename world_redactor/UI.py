@@ -1,6 +1,8 @@
 from ursina import *
 
+
 class UI(Entity):
+
 
     def __init__(self, command_handler, path):
         super().__init__()
@@ -9,8 +11,10 @@ class UI(Entity):
         self.path = path
         self.input_ = None
 
+
     def get_cmd_status(self):
         return self.cmd
+
 
     def cmd_show(self):
         if not self.cmd:
@@ -39,3 +43,4 @@ class UI(Entity):
                 print(e)
         if key == "alt":
             self.cmd_show()
+
