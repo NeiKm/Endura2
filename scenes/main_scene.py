@@ -15,8 +15,9 @@ class Object(Entity, ObjectFactory, LoadMap):
 
     def json_object(self): 
         self.world = self.load_map("scenes\main_scene\world.json")
-        for i in self.world:
-            i.texture = None
+        # for i in self.world:
+        #     i.texture = None
+        print(self.world)
 
     def table(self):
         self.table_ = Entity(
@@ -103,11 +104,12 @@ class MainScene(Object):
         sun.shadow_bias = 0.01
 
     def setup_sounds(self):
-        self.bg_music = Audio(
-            "static/sounds/music/first_scene_bg.mp3",
-            loop=True,
-            autoplay=True
-        )
+        # self.bg_music = Audio(
+        #     "static/sounds/music/first_scene_bg.mp3",
+        #     loop=True,
+        #     autoplay=True
+        # )
+        pass
 
     def setup_room_light(parent=None):
         light = PointLight(
@@ -126,12 +128,8 @@ class MainScene(Object):
         self.ray = raycast(
             origin=camera.world_position,
             direction=camera.forward,
-            distance=2,
+            distance=20,
             ignore=(self.player,)
         )
-        if self.ray.hit and self.ray.entity == self.world[12] or self.ray.entity == self.world[11]:
-            self.world[12].color = color.green
-            self.world[11].color = color.green
-        else:
-            self.world[12].color = color.white
-            self.world[11].color = color.white
+        # if self.ray.hit:
+        #     self.ray.entity.color = color.green

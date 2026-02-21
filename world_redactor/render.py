@@ -16,3 +16,4 @@ class Rendering:
             position = Vec3(0, -4, 0)
         )
         return self.ground
+    
