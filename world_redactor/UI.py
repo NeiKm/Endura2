@@ -20,7 +20,7 @@ class UI(Entity):
         if not self.cmd:
             self.input_ = InputField(
                 scale=(1.5, .9),
-                default_value="set color_a 0.5 0.5 0.5 1.0",
+                default_value="Endura2>>>",
                 max_lines = 10,
                 text_color=color.white
             )
@@ -32,7 +32,7 @@ class UI(Entity):
 
     def update(self):
         if self.cmd:
-            pass
+            print("Консоль разработчика включена")
 
     def input(self, key):
         if key == "`":

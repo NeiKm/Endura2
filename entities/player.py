@@ -43,7 +43,7 @@ class Player(FirstPersonController):
             position=(0, 0)
         )
 
-        # Праметры игрка
+        # -------------------параметры игрока-------------------
         self.position = (0, -1, 0)
         self.cursor.visible = True
         self.cursor.scale = 0.004
@@ -55,7 +55,7 @@ class Player(FirstPersonController):
         self.camera_pivot.y = 1.85
         self.fly_mode = [self.gravity, False]
 
-        # -------------------реализация состаяние граз-------------------
+        # -------------------состаяние граз-------------------
         self.eye_height = 1.01
         self.eye_state = "closed"
         self.eye_animating = False
@@ -78,6 +78,7 @@ class Player(FirstPersonController):
             z=-1
         )
         # invoke(self.wake_up, delay=0.1)
+
         # -------------------параметры диалога-------------------
         self.dialog_fill_text = "asdadasdasdasda"
         self.dialog_text = ""
@@ -91,14 +92,14 @@ class Player(FirstPersonController):
             color=color.black,
             origin=(0, 0),
             position=(0, -0.3),
-            enabled=False   # <- Скрытие субтитров
+            enabled=False # включить/отключить видимость субтитров False/True
         )
 
         self.shake_timer = 0
         self.shake_power = 0.06
         self.shake_speed = 12
 
-        # -------------------параметры стамины/бега-------------------
+        # -------------------параметры стамины и бега-------------------
         self.stamina = 100
         self.max_stamina = 100
 
@@ -254,6 +255,10 @@ class Player(FirstPersonController):
     def update(self):
         super().update()
 
+        ray = self.shoot_ray()
+        if ray.hit:
+            print("Entity---------------------------------------------:", ray.entity.position)
+
         if self.dialog:
             self.dialog_ui.enabled = True
 
@@ -292,7 +297,15 @@ class Player(FirstPersonController):
                         self.can_run = True
 
         self.UI(held_keys["shift"])
-    
+
+
+    def shoot_ray(self, distance=100):
+        return raycast(
+            self.camera_pivot.world_position,
+            self.camera_pivot.forward,
+            distance=distance,
+            ignore=(self,)
+        )
 
     def input(self, key):
         super().input(key)
