@@ -20,7 +20,7 @@ class LoadMap:
         for obj in data:
             position = Vec3(*obj.get("position", [0, 0, 0]))
             rotation = Vec3(*obj.get("rotation", [0, 0, 0]))
-            scale = Vec3(*obj.get("scale", [1, 1, 1]))
+            scale    = Vec3(*obj.get("scale",    [1, 1, 1]))
 
             col = obj.get("color", [1.0, 1.0, 1.0])
 
@@ -33,7 +33,7 @@ class LoadMap:
                 scale=scale,
                 texture=obj.get("texture", None),
                 color=color_val,
-                collider=obj.get("collider", "box"),
+                collider=obj.get("collider", None),
                 shader = lit_with_shadows_shader
             )
 

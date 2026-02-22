@@ -19,19 +19,28 @@ class Player(FirstPersonController):
             receive_shadows=True
         )
 
-        self.item_in_hand = {
-            "model": "static/3d_model/secret_key.obj",
-            "scale": (0.2, 0.2, 0.6),
-            "rotation": (0, 180, -45),
-            "position": (0.5, -0.35)
+        self.item_data = {
+            "Key": {
+                "model": "static/3d_model/key.obj",
+                "scale": (0.1, 0.1, 0.3),
+                "rotation": (0, 180, -45),
+                "position": (0.5, -0.35)
+            },
+            "Secret Key": {
+                "model": "static/3d_model/secret_key.obj",
+                "scale": (0.2, 0.2, 0.6),
+                "rotation": (0, 180, -45),
+                "position": (0.5, -0.35)
+            }
         }
+
         self.hand = Entity(
             parent=camera.ui,
             color=color.yellow,
-            model=self.item_in_hand["model"],
-            scale=self.item_in_hand["scale"],
-            rotation=self.item_in_hand["rotation"],
-            position=self.item_in_hand["position"]
+            model=None,
+            scale=(0, 0, 0),
+            rotation=(0, 0, 0),
+            position=(0, 0)
         )
 
         # -------------------параметры игрока-------------------
@@ -179,6 +188,10 @@ class Player(FirstPersonController):
                 z=0
             )
 
+            slot.collider = 'box'
+            slot.slot_index = i
+            slot.on_click = lambda s=slot: self.select_item_from_slot(s.slot_index)
+
             slot.text = Text(
                 parent=self.inventory_ui,
                 text="",
@@ -225,6 +238,17 @@ class Player(FirstPersonController):
             else:
                 self.slot_entities[i].text.text = ""
 
+    def select_item_from_slot(self, index):
+        if index < len(self.inventory):
+            item_name = self.inventory[index]
+            
+            if item_name in self.item_data:
+                data = self.item_data[item_name]
+                
+                self.hand.model = data["model"]
+                self.hand.scale = data["scale"]
+                self.hand.rotation = data["rotation"]
+                self.hand.position = data["position"]
 
     def update(self):
         super().update()
@@ -290,8 +314,11 @@ class Player(FirstPersonController):
         if key == 'c':
             if self.eye_state == "open":
                 self.close_eyes()
+                self.add_item("Key")
+                
             else:
                 self.open_eyes()
+                self.add_item("Secret Key") 
 
         if key == "tab":
             mouse.locked = not mouse.locked
