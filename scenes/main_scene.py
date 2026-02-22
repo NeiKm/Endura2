@@ -17,7 +17,6 @@ class Object(Entity, ObjectFactory, LoadMap):
         self.world = self.load_map("scenes\main_scene\world.json")
         # for i in self.world:
         #     i.texture = None
-        print(self.world)
 
     def table(self):
         self.table_ = Entity(
@@ -85,7 +84,6 @@ class MainScene(Object):
 
         self.player = Player()
         self.cut_scene = MainCutScene(self.player)
-        # self.player.add_item("Веревка") ИСПРАВИТЬ (ДОБАВЛЕНИЕ ПРЕДМЕТОВ НЕ РАБОТАЕТ)
 
         self.setup_light()
         self.setup_sounds()
