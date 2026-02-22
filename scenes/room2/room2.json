@@ -1,0 +1,602 @@
+[
+    {
+        "model": "cube",
+        "position": [
+            4.5,
+            4.099998474121094,
+            12.0
+        ],
+        "rotation": [
+            180.0,
+            90.0,
+            0.0
+        ],
+        "scale": [
+            9.25,
+            0.25,
+            18.0
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            0.0,
+            3.7999987602233887,
+            -1.0
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            8.75,
+            0.25,
+            17.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            9.0,
+            4.199998378753662,
+            24.0
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            8.75,
+            0.25,
+            15.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            4.0,
+            2.200000047683716,
+            -1.0
+        ],
+        "rotation": [
+            180.0,
+            360.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            17.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            13.0,
+            2.200000047683716,
+            19.5
+        ],
+        "rotation": [
+            180.0,
+            360.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            24.25
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            -4.0,
+            2.200000047683716,
+            3.5
+        ],
+        "rotation": [
+            180.0,
+            360.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            26.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            0.5,
+            2.200000047683716,
+            16.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            9.75
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            5.0,
+            2.200000047683716,
+            24.0
+        ],
+        "rotation": [
+            180.0,
+            360.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            15.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            -2.5,
+            2.200000047683716,
+            -9.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            3.25
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            8.5,
+            2.200000047683716,
+            7.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            9.75
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            11.5,
+            2.200000047683716,
+            31.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            3.25
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            2.5,
+            2.200000047683716,
+            -9.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            3.25
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            6.5,
+            2.200000047683716,
+            31.5
+        ],
+        "rotation": [
+            180.0,
+            450.0,
+            180.0
+        ],
+        "scale": [
+            0.75,
+            4.5,
+            3.25
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            0.5,
+            0.0,
+            -1.0
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            8.75,
+            0.25,
+            17.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            5.0,
+            0.0,
+            12.0
+        ],
+        "rotation": [
+            180.0,
+            90.0,
+            0.0
+        ],
+        "scale": [
+            8.75,
+            0.25,
+            17.75
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            9.0,
+            1.5000001192092896,
+            31.5
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            1.7999999523162842,
+            3.0,
+            0.10000000149011612
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            9.0,
+            -1.4901161193847656e-08,
+            24.0
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            8.75,
+            0.25,
+            15.5
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            0.0,
+            1.5000001192092896,
+            -9.5
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            1.7999999523162842,
+            3.0,
+            0.10000000149011612
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            9.0,
+            3.6999988555908203,
+            31.5
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            1.75,
+            1.5,
+            0.75
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    },
+    {
+        "model": "cube",
+        "position": [
+            0.0,
+            3.6999988555908203,
+            -9.5
+        ],
+        "rotation": [
+            -0.0,
+            -0.0,
+            0.0
+        ],
+        "scale": [
+            1.75,
+            1.5,
+            0.75
+        ],
+        "texture": "white_cube.png",
+        "texture_scale": [
+            1.0,
+            1.0
+        ],
+        "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "collider": "box"
+    }
+]

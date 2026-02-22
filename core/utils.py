@@ -4,11 +4,11 @@ import json
 import os
 
 
-class LoadMap():
+class LoadMap:
     def __init__(self):
-        pass
+        self.AllEntity = []
 
-    def load_map(self, path):
+    def load_map(self, path, displacement = Vec3(0, 0, 0)):
         if not os.path.exists(path):
             raise FileNotFoundError(f"Файл мира не найдн: {path}")
 
@@ -28,7 +28,7 @@ class LoadMap():
 
             entity = Entity(
                 model=obj.get("model", "cube"),
-                position=position,
+                position=position + displacement,
                 rotation=rotation,
                 scale=scale,
                 texture=obj.get("texture", None),
@@ -40,5 +40,4 @@ class LoadMap():
             created_entities.append(entity)
 
         return created_entities
-    
     

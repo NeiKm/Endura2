@@ -9,15 +9,22 @@ class Object(Entity, ObjectFactory, LoadMap):
     def __init__(self): 
         super().__init__() 
         self.floor_size = 64 
-        self.json_object() 
-        self.table()
-        self.sky = Sky(texture="static/textures/sky_texture2.jpg")
+        self.room1_()
+        # self.table()
+        self.sky = Sky(texture="static/textures/glith.jpg")
 
-    def json_object(self): 
-        self.world = self.load_map("scenes\main_scene\world.json")
-        # for i in self.world:
-        #     i.texture = None
-        print(self.world)
+    def ramdom_generate_room(self):
+        rooms = []
+        pass
+
+    def room1_(self): 
+        self.room1 = self.load_map("scenes/main_scene/world.json")
+    
+    def room2_(self):
+        self.room2 = self.load_map("scenes/room2/room2.json", displacement=Vec3(0, 0, 21))
+
+    def room3_(self):
+        pass
 
     def table(self):
         self.table_ = Entity(
@@ -90,8 +97,8 @@ class MainScene(Object):
         self.setup_light()
         self.setup_sounds()
 
-        invoke(self.table_glith_1, delay=1)
-        invoke(self.sky_glith_1, delay=1)
+        # invoke(self.table_glith_1, delay=1)
+        # invoke(self.sky_glith_1, delay=1)
 
 
     def setup_light(self):
@@ -123,13 +130,36 @@ class MainScene(Object):
     def input(self, key):
         if key == "escape":
             application.quit()
+        if key == "v":
+            ray = self.player.shoot_ray(99999)
+            if ray.entity == self.room1[10]:
+                print("____________________________________________")
+                self.room1[10].animate(
+                    "x",
+                    10,
+                    duration=1,
+                    curve=curve.out_quad
+                )
+            if ray.entity == self.room1[-3]:
+                print("____________________________________________")
+                self.room1[-3].animate(
+                    "x",
+                    10,
+                    duration=1,
+                    curve=curve.out_quad
+                )
+                self.room2_()
+
+            if ray.entity == self.room2[-3]:
+                print("____________________________________________")
+                self.room2[-3].animate(
+                    "x",
+                    10,
+                    duration=1,
+                    curve=curve.out_quad
+                )
+
+
 
     def update(self):
-        self.ray = raycast(
-            origin=camera.world_position,
-            direction=camera.forward,
-            distance=20,
-            ignore=(self.player,)
-        )
-        # if self.ray.hit:
-        #     self.ray.entity.color = color.green
+        pass
