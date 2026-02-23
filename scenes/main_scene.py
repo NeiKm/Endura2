@@ -13,6 +13,12 @@ class Object(Entity, ObjectFactory, LoadMap):
         # self.table()
         self.sky = Sky(texture="static/textures/glith.jpg")
 
+<<<<<<< HEAD
+    def json_object(self): 
+        self.world = self.load_map("scenes\main_scene\world.json")
+        # for i in self.world:
+        #     i.texture = None
+=======
     def ramdom_generate_room(self):
         rooms = []
         pass
@@ -25,6 +31,7 @@ class Object(Entity, ObjectFactory, LoadMap):
 
     def room3_(self):
         pass
+>>>>>>> 223372239dc13113f60c180ea84576233e7eda8f
 
     def table(self):
         self.table_ = Entity(
@@ -92,7 +99,6 @@ class MainScene(Object):
 
         self.player = Player()
         self.cut_scene = MainCutScene(self.player)
-        # self.player.add_item("Веревка") ИСПРАВИТЬ (ДОБАВЛЕНИЕ ПРЕДМЕТОВ НЕ РАБОТАЕТ)
 
         self.setup_light()
         self.setup_sounds()

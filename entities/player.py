@@ -249,6 +249,8 @@ class Player(FirstPersonController):
                 self.hand.scale = data["scale"]
                 self.hand.rotation = data["rotation"]
                 self.hand.position = data["position"]
+            else:
+                self.hand.model = None
 
     def update(self):
         super().update()
