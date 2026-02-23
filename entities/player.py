@@ -86,7 +86,7 @@ class Player(FirstPersonController):
         # invoke(self.wake_up, delay=0.1)
 
         # -------------------параметры диалога-------------------
-        self.dialog_fill_text = "asdadasdasdasda"
+        self.dialog_fill_text = ""
         self.dialog_text = ""
         self.dialog = False
         self.text_index = 0
@@ -258,12 +258,59 @@ class Player(FirstPersonController):
             else:
                 self.hand.model = None
 
+        self.death_bg = Entity(
+            parent=self.death_screen,
+            model='quad',
+            scale=(2, 2),
+            color=color.black,
+            alpha=0.8
+        )
+        
+        self.death_text = Text(
+            text='GAME OVER',
+            parent=self.death_screen,
+            origin=(0,0),
+            scale=5,
+            color=color.red,
+            position=(0, 0.1)
+        )
+
+        self.retry_button = Button(
+            text='Restart',
+            parent=self.death_screen,
+            scale=(0.2, 0.08),
+            position=(0, -0.1),
+            color=color.gray,
+            on_click=self.restart_game
+        )
+
+    def die(self):
+        self.death_screen.enabled = True
+        mouse.locked = False
+        self.cursor.visible = True
+        time.dt = 0 
+        self.enabled = False 
+
+    def restart_game(self):
+        os.execl(sys.executable, sys.executable, *sys.argv)
+
     def update(self):
         super().update()
 
         ray = self.shoot_ray()
         if ray.hit:
             print("Entity---------------------------------------------:", ray.entity.position)
+
+        if len(self.inventory) >= 8:
+            Text(
+                "ПОБЕДА",
+                parent=camera.ui,
+                origin=(0, 0),
+                scale=3,
+                color=color.blue
+            )
+            self.position = Vec3(-9999, -9999, -9999)
+            return
 
         if self.dialog:
             self.dialog_ui.enabled = True
@@ -274,10 +321,10 @@ class Player(FirstPersonController):
         else:
             self.dialog_ui.enabled = False
 
-        if held_keys["e"]:
-            self.position += Vec3(0, 0.5, 0)  
-        if held_keys["q"]:
-            self.position -= Vec3(0, 0.5, 0)  
+        # if held_keys["e"]:
+        #     self.position += Vec3(0, 0.5, 0)  
+        # if held_keys["q"]:
+        #     self.position -= Vec3(0, 0.5, 0)  
 
         if not self.fly_mode[1]:
             is_moving = self.direction.length() > 0 and self.grounded
@@ -322,11 +369,8 @@ class Player(FirstPersonController):
         if key == "c":
             if self.eye_state == "open":
                 self.close_eyes()
-                self.add_item("Key")
-                
             else:
                 self.open_eyes()
-                self.add_item("Secret Key") 
 
         if key == "tab":
             mouse.locked = not mouse.locked
@@ -334,20 +378,20 @@ class Player(FirstPersonController):
             self.toggle_inventory()
 
 
-        if key == "r":
-            self.dialog = not self.dialog
-            if self.dialog:
-                self.text_index = 0
-                self.dialog_ui.text = ""
+        # if key == "r":
+        #     self.dialog = not self.dialog
+        #     if self.dialog:
+        #         self.text_index = 0
+        #         self.dialog_ui.text = ""
 
-        if key == "f":
-            self.fly_mode[1] = not self.fly_mode[1]
-            if self.fly_mode[1]:
-                self.gravity = 0
-                self.speed = 20
-            elif not self.fly_mode[1]:
-                self.speed = 5
-                self.gravity = self.fly_mode[0]
+        # if key == "f":
+        #     self.fly_mode[1] = not self.fly_mode[1]
+        #     if self.fly_mode[1]:
+        #         self.gravity = 0
+        #         self.speed = 20
+        #     elif not self.fly_mode[1]:
+        #         self.speed = 5
+        #         self.gravity = self.fly_mode[0]
 
         if key == "l":
             self.gravity = -1
