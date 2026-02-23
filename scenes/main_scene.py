@@ -122,7 +122,7 @@ class MainScene(Object):
 
         self.player = Player()
         self.cut_scene = MainCutScene(self.player)
-        self.player.add_item("Веревка")
+        # self.player.add_item("Веревка") ИСПРАВИТЬ (ДОБАВЛЕНИЕ ПРЕДМЕТОВ НЕ РАБОТАЕТ)
 
         self.setup_light()
         self.setup_sounds()

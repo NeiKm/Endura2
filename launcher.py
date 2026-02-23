@@ -11,7 +11,7 @@ import math
 class EnduraMenu(Entity):
     def __init__(self):
 
-        self.app = Ursina(title='Endura2 Menu', borderless=False, fullscreen=False, resizable=True)
+        self.app = Ursina(title="Endura2 Menu", borderless=False, fullscreen=False, resizable=True)
         super().__init__()
         window.color = color.rgb(15, 15, 25)
         window.fps_counter.enabled = False
@@ -26,8 +26,8 @@ class EnduraMenu(Entity):
         camera.look_at(self.model_pivot)
 
         self.models = [
-            'static/3d_model/key.obj',
-            'static/3d_model/Secret_key.obj',
+            "static/3d_model/key.obj",
+            "static/3d_model/Secret_key.obj",
             "static/3d_model/Player.glb",
             "static/3d_model/rocket_boss.glb",
             "static/3d_model/rocket_boss.glb"
@@ -45,10 +45,10 @@ class EnduraMenu(Entity):
 
         if os.path.exists(self.model_parameters["path"]):
             model_path = self.model_parameters["path"]
-            print(f"Loaded model: {self.model_parameters['path']}")
+            print(f"Loaded model: {self.model_parameters["path"]}")
         else:
-            print(f"Warning: Model {self.model_parameters['path']} not found. Using placeholder.")
-            model_path = 'cube'
+            print(f"Warning: Model {self.model_parameters["path"]} not found. Using placeholder.")
+            model_path = "cube"
 
         self.hero_model = Entity(
             parent=self.model_pivot,
@@ -70,7 +70,7 @@ class EnduraMenu(Entity):
 
         self.decor_line_left = Entity(
             parent=menu_ui,
-            model='sphere',
+            model="sphere",
             color=color.black,
             scale=(0.01, 0.5),
             position=(-0.5, 0),
@@ -79,7 +79,7 @@ class EnduraMenu(Entity):
 
         self.decor_line_right = Entity(
             parent=menu_ui,
-            model='sphere',
+            model="sphere",
             color=color.black,
             scale=(0.01, 0.5),
             position=(0.5, 0),
@@ -107,7 +107,7 @@ class EnduraMenu(Entity):
                 
                 self.glow = Entity(
                     parent=self,
-                    model='quad',
+                    model="quad",
                     color=color.rgba(0, 150, 255, 0),
                     scale=(1.2, 1.2),
                     z=-1
@@ -145,7 +145,7 @@ class EnduraMenu(Entity):
             exit()
 
         self.title_main = Text(
-            text='ENDURA 2',
+            text="ENDURA 2",
             parent=menu_ui,
             y=0.25,
             origin=(0, 0),
@@ -154,7 +154,7 @@ class EnduraMenu(Entity):
         )
 
         self.title_shadow = Text(
-            text='ENDURA 2',
+            text="ENDURA 2",
             parent=menu_ui,
             y=0.25,
             origin=(0, 0),
@@ -164,7 +164,7 @@ class EnduraMenu(Entity):
         )
 
         # title_glow = Text(
-        #     text='ENDURA 2',
+        #     text="ENDURA 2",
         #     parent=menu_ui,
         #     y=0.25,
         #     origin=(0, 0),
@@ -174,7 +174,7 @@ class EnduraMenu(Entity):
         # )
 
         self.subtitle = Text(
-            text='Pre-Alpha',
+            text="Pre-Alpha",
             parent=menu_ui,
             y=0.12,
             origin=(-1.2, -1),
@@ -186,7 +186,7 @@ class EnduraMenu(Entity):
 
         self.button_bg = Entity(
             parent=menu_ui,
-            model='quad',
+            model="quad",
             color=color.rgba(0, 0, 0, 120),
             scale=(0.5, 0.25),
             y=-0.05,
@@ -201,7 +201,7 @@ class EnduraMenu(Entity):
         self.btn_quit = MenuButton(text=btn_quit_txt, on_click=quit_game, y_pos=-0.10)
 
         self.version_text = Text(
-            text='0.1.0-pre-alpha | Developed by PyForge',
+            text="0.1.0-pre-alpha | Developed by PyForge",
             parent=menu_ui,
             position=(0, -0.45),
             origin=(0, 0),
@@ -213,7 +213,7 @@ class EnduraMenu(Entity):
         for i in range(40):
             p = Entity(
                 parent=menu_ui,
-                model='sphere',
+                model="sphere",
                 color=random.choice([color.blue, color.azure, color.white, color.gray]),
                 scale=(0.01, 0.01),
                 position=(random.uniform(-0.9, 0.9), random.uniform(-0.4, 0.4)),
@@ -250,7 +250,7 @@ class EnduraMenu(Entity):
         self.app.run()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     menu = EnduraMenu()
     menu.run()
     
