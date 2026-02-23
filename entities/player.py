@@ -31,7 +31,13 @@ class Player(FirstPersonController):
                 "scale": (0.2, 0.2, 0.6),
                 "rotation": (0, 180, -45),
                 "position": (0.5, -0.35)
-            }
+            },
+            # "gravity alterer": {
+            #     "model": "static/3d_model/secret_key.obj",
+            #     "scale": (0.2, 0.2, 0.6),
+            #     "rotation": (0, 180, -45),
+            #     "position": (0.5, -0.35)
+            # }
         }
 
         self.hand = Entity(
@@ -116,7 +122,7 @@ class Player(FirstPersonController):
 
         self.stamina_bar_bg = Entity(
             parent=camera.ui,
-            model='quad',
+            model="quad",
             color=color.gray,
             scale=(0.4, 0.03),
             position=(0, -0.45)
@@ -124,7 +130,7 @@ class Player(FirstPersonController):
 
         self.stamina_bar = Entity(
             parent=self.stamina_bar_bg,
-            model='quad',
+            model="quad",
             color=color.blue,
             scale=(1, 1),
             position=(-0.5, 0),
@@ -146,7 +152,7 @@ class Player(FirstPersonController):
 
         self.inventory_bg = Entity(
             parent=self.inventory_ui,
-            model='quad',
+            model="quad",
             color=color.rgba(20,20,20,220),
             scale=(0.6, 0.6),
             position=(0, 0)
@@ -155,7 +161,7 @@ class Player(FirstPersonController):
 
         self.inventory_title_bg = Entity(
             parent=self.inventory_ui,
-            model='quad',
+            model="quad",
             color=color.dark_gray,
             scale=(0.3, 0.08),
             position=(0, 0.35)
@@ -181,14 +187,14 @@ class Player(FirstPersonController):
 
             slot = Entity(
                 parent=self.inventory_ui,
-                model='quad',
+                model="quad",
                 color=color.gray,
                 scale=(0.12, 0.12),
                 position=slot_pos,
                 z=0
             )
 
-            slot.collider = 'box'
+            slot.collider = "box"
             slot.slot_index = i
             slot.on_click = lambda s=slot: self.select_item_from_slot(s.slot_index)
 
@@ -311,7 +317,7 @@ class Player(FirstPersonController):
         if key == "alt":
             mouse.locked = not mouse.locked
             self.cursor.visible = not self.cursor.visible
-        if key == 'c':
+        if key == "c":
             if self.eye_state == "open":
                 self.close_eyes()
                 self.add_item("Key")
@@ -349,7 +355,7 @@ class Player(FirstPersonController):
         is_moving = self.direction.length() > 0 and self.grounded
 
         if is_moving:
-            current_shake_speed = self.shake_speed * 1.5 if held_keys['shift'] else self.shake_speed
+            current_shake_speed = self.shake_speed * 1.5 if held_keys["shift"] else self.shake_speed
             self.shake_timer += time.dt * current_shake_speed
 
             camera.x = math.cos(self.shake_timer * 0.5) * self.shake_power * 0.5

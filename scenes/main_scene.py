@@ -8,23 +8,53 @@ from ursina.physics import *
 class Object(Entity, ObjectFactory, LoadMap): 
     def __init__(self): 
         super().__init__() 
-        self.floor_size = 64 
+        # self.table()``
+        self.sky = Sky(texture="static/textures/sky.png")
+        # ----это что-бы не вылетало---
+        # self.room2 = []
+        # self.room3 = []
+        # self.room4 = []
+        # self.room5 = []
+        # self.room6 = []
+        # self.room7 = []
+        self.floor_size = 64
+        self.current_z = 0
+
+        self.last_room = None
+        self.room_files = [
+            "scenes/room2/room2.json",
+        ]
+
         self.room1_()
-        # self.table()
-        self.sky = Sky(texture="static/textures/glith.jpg")
 
     def ramdom_generate_room(self):
         rooms = []
         pass
 
-    def room1_(self): 
-        self.room1 = self.load_map("scenes/main_scene/world.json")
-    
-    def room2_(self):
-        self.room2 = self.load_map("scenes/room2/room2.json", displacement=Vec3(0, 0, 21))
+    def room1_(self):
+        self.last_room = self.load_map(
+            "scenes/main_scene/world.json",
+            displacement=Vec3(0, 0, self.current_z)
+        )
+
+        length = self.get_room_length(self.last_room)
+        self.current_z -= (length + 2)
 
     def room3_(self):
         pass
+
+    def get_room_length(self, room_entities):
+        min_z = float("inf")
+        max_z = float("-inf")
+    
+        for e in room_entities:
+            z = e.world_position.z
+            size = e.scale_z
+    
+            min_z = min(min_z, z - size/2)
+            max_z = max(max_z, z + size/2)
+    
+        return max_z - min_z
 
     def table(self):
         self.table_ = Entity(
@@ -92,13 +122,29 @@ class MainScene(Object):
 
         self.player = Player()
         self.cut_scene = MainCutScene(self.player)
-        # self.player.add_item("Веревка") ИСПРАВИТЬ (ДОБАВЛЕНИЕ ПРЕДМЕТОВ НЕ РАБОТАЕТ)
+        self.player.add_item("Веревка")
 
         self.setup_light()
         self.setup_sounds()
 
         # invoke(self.table_glith_1, delay=1)
         # invoke(self.sky_glith_1, delay=1)
+
+
+    def spawn_next_room(self):
+        import random
+
+        room_path = random.choice(self.room_files)
+
+        new_room = self.load_map(
+            room_path,
+            displacement=Vec3(0, 0, self.current_z)
+        )
+
+        length = self.get_room_length(new_room)
+        self.current_z -= (length + 2)
+
+        self.last_room = new_room
 
 
     def setup_light(self):
@@ -128,36 +174,22 @@ class MainScene(Object):
         light.radius = 10
 
     def input(self, key):
+        print(self.player.inventory)
         if key == "escape":
             application.quit()
         if key == "v":
             ray = self.player.shoot_ray(99999)
-            if ray.entity == self.room1[10]:
-                print("____________________________________________")
-                self.room1[10].animate(
-                    "x",
-                    10,
-                    duration=1,
-                    curve=curve.out_quad
-                )
-            if ray.entity == self.room1[-3]:
-                print("____________________________________________")
-                self.room1[-3].animate(
-                    "x",
-                    10,
-                    duration=1,
-                    curve=curve.out_quad
-                )
-                self.room2_()
+            if "Key" in self.player.inventory:
+                if ray.entity in self.last_room:
+                    ray.entity.animate(
+                        "x",
+                        10,
+                        duration=1,
+                        curve=curve.out_quad
+                    )
 
-            if ray.entity == self.room2[-3]:
-                print("____________________________________________")
-                self.room2[-3].animate(
-                    "x",
-                    10,
-                    duration=1,
-                    curve=curve.out_quad
-                )
+                    self.spawn_next_room()
+                    self.player.remove_item("Key")
 
 
 
