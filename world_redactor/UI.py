@@ -1,6 +1,8 @@
 from ursina import *
 
+
 class UI(Entity):
+
 
     def __init__(self, command_handler, path):
         super().__init__()
@@ -9,14 +11,16 @@ class UI(Entity):
         self.path = path
         self.input_ = None
 
+
     def get_cmd_status(self):
         return self.cmd
+
 
     def cmd_show(self):
         if not self.cmd:
             self.input_ = InputField(
                 scale=(1.5, .9),
-                default_value="set color_a 0.5 0.5 0.5 1.0",
+                default_value="Endura2>>>",
                 max_lines = 10,
                 text_color=color.white
             )
@@ -28,7 +32,7 @@ class UI(Entity):
 
     def update(self):
         if self.cmd:
-            pass
+            print("Консоль разработчика включена")
 
     def input(self, key):
         if key == "`":
@@ -39,3 +43,4 @@ class UI(Entity):
                 print(e)
         if key == "alt":
             self.cmd_show()
+
