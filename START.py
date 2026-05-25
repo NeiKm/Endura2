@@ -45,9 +45,9 @@ class EnduraMenu(Entity):
 
         if os.path.exists(self.model_parameters["path"]):
             model_path = self.model_parameters["path"]
-            print(f"Loaded model: {self.model_parameters["path"]}")
+            # print(f"Loaded model: {self.model_parameters["path"]}")
         else:
-            print(f"Warning: Model {self.model_parameters["path"]} not found. Using placeholder.")
+            # print(f"Warning: Model {self.model_parameters["path"]} not found. Using placeholder.")
             model_path = "cube"
 
         self.hero_model = Entity(
