@@ -12,9 +12,7 @@
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8Dyj7l1U3zjrJAXpj8kb9IwZcmG9BS33W1Q&s" width=10%>
 </div>
 
-<div align="center">
-    <a src="https://www.rts.school/en/courses">Rocket Tech School</a>
-</div>
+[Rocket Tech School](https://www.rts.school/en/courses)
 
 
 ## 🛠 Техчасть
@@ -64,9 +62,7 @@ Raid он же upiashi
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8Dyj7l1U3zjrJAXpj8kb9IwZcmG9BS33W1Q&s" width=10%>
 </div>
 
-<div align="center">
-    <a src="https://www.rts.school/en">Rocket Tech School</a>
-</div>
+[Rocket Tech School](https://www.rts.school/en/courses)
 
 ## 🛠 기술 스택
 
