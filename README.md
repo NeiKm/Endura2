@@ -1,11 +1,21 @@
 # 🎮 Endura2
 
 Это 3D-игра, написанная на **Python**.  
-Изначально разработка игры была начата, чтобы выиграть `RTS GAME AWARD` от Rocket tech school в 2026 году🏆  
+Изначально разработка игры была начата, чтобы выиграть `RTS GAME AWARD` от Rocket Tech School в 2026 году🏆  
 К сожалению, игре не удалось пробиться в финал, и разработка игры на данный момент остановлена.  
 Период разработки был от 14 декабря 2025 года до 24 февраля 2026 года. В течение этого времени было сделано более 70 обновлений.  
 Поначалу проект должен был стать психологическим хоррором с довольно интересной задумкой (прочитать подробнее можно в `сюжете.txt`).  
 Но из-за нехватки времени, а также ошибки с генерацией мира последние дни разработки сильно изменили направление проекта.
+
+<div align="center">
+    <img src="https://img.itch.zone/aW1nLzI1MDc2NzI5LnBuZw==/508x254%23mb/Pybqep.png" width=30%>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8Dyj7l1U3zjrJAXpj8kb9IwZcmG9BS33W1Q&s" width=10%>
+</div>
+
+<div align="center">
+    <a src="https://www.rts.school/en/courses">Rocket Tech School</a>
+</div>
+
 
 ## 🛠 Техчасть
 
@@ -48,6 +58,15 @@ Raid он же upiashi
 개발 기간은 2025년 12월 14일부터 2026년 2월 24일까지였으며, 이 기간 동안 70회 이상의 업데이트가 이루어졌습니다.
 초기 기획은 꽤나 흥미로운 설정을 가진 심리적 공포(호러) 게임이었습니다 (자세한 내용은 сюжете.txt 파일에서 확인하실 수 있습니다).
 하지만 개발 시간 부족과 맵 생성 오류(버그)로 인해 개발 막바지에 프로젝트의 방향성이 크게 변경되었습니다.
+
+<div align="center">
+    <img src="https://img.itch.zone/aW1nLzI1MDc2NzI5LnBuZw==/508x254%23mb/Pybqep.png" width=30%>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8Dyj7l1U3zjrJAXpj8kb9IwZcmG9BS33W1Q&s" width=10%>
+</div>
+
+<div align="center">
+    <a src="https://www.rts.school/en">Rocket Tech School</a>
+</div>
 
 ## 🛠 기술 스택
 
