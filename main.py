@@ -8,7 +8,7 @@ from scenes.main_scene import MainScene
 class Main:
     def __init__(self):
         self.SETTINGS = load_settings()
-        self.app = Ursina(multisample=True, development_mode=True)
+        self.app = Ursina(multisample=True, development_mode=True, title="Ursina (BETA)")
         self.scene = MainScene()
         self.setup_window()
         self.setup_camera()
