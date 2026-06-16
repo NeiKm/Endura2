@@ -17,7 +17,7 @@
 
 ## 🛠 Техчасть
 
-* Python 3
+* Python 3.14.6 (3.11)
 * Ursina
 
 ---
@@ -66,7 +66,7 @@ Raid он же upiashi
 
 ## 🛠 기술 스택
 
-* Python 3
+* Python 3.14.6 (3.11)
 * Ursina
 
 ---

@@ -11,7 +11,7 @@ import math
 class EnduraMenu(Entity):
     def __init__(self):
 
-        self.app = Ursina(title="Endura2 Menu", borderless=False, fullscreen=False, resizable=True)
+        self.app = Ursina(title="Endura2 Menu (BETA)", borderless=False, fullscreen=False, resizable=True)
         super().__init__()
         window.color = color.rgb(15, 15, 25)
         window.fps_counter.enabled = False

@@ -82,28 +82,30 @@ class Object(Entity, ObjectFactory, LoadMap):
             color=color.white
         )
 
-    def table_glith_1(self):
-        destroy(self.table_)
-        self.table_ = Entity(
-            model="static/3d_model/table.glb",
-            position=(0, -2, 4),
-            scale=4,
-            collider="box",
-            texture="static/textures/miniglith.png",
-        )
-        invoke(self.table_glith_2, delay=0.1)
+    # Это временные меры, этот код отвечал за глитч текстур на столе.
+    # Нужно переписать данный код и желательно сделать отдельный метод для гтичей Entity
+    # def table_glith_1(self):
+    #     destroy(self.table_)
+    #     self.table_ = Entity(
+    #         model="static/3d_model/table.glb",
+    #         position=(0, -2, 4),
+    #         scale=4,
+    #         collider="box",
+    #         texture="static/textures/miniglith.png",
+    #     )
+    #     invoke(self.table_glith_2, delay=0.1)
 
-    def table_glith_2(self):
-        destroy(self.table_)
-        self.table_ = Entity(
-            model="static/3d_model/table.glb",
-            position=(0, -2, 4),
-            scale=4,
-            collider="box",
-            texture=None,
-            color=color.white
-        )
-        invoke(self.table_glith_1, delay=random.randint(1, 2))
+    # def table_glith_2(self):
+    #     destroy(self.table_)
+    #     self.table_ = Entity(
+    #         model="static/3d_model/table.glb",
+    #         position=(0, -2, 4),
+    #         scale=4,
+    #         collider="box",
+    #         texture=None,
+    #         color=color.white
+    #     )
+    #     invoke(self.table_glith_1, delay=random.randint(1, 2))
 
     def sky_glith_1(self):
         destroy(self.sky)
@@ -160,7 +162,10 @@ class MainScene(Object):
         self.player.text_speed = 1
 
 
-        """Код грязный, но это временно"""
+        """
+            Код грязный, но это временно
+            Желательно заменить все что ниже на функцию или класс который будет отвечать за отрисовку субтитров
+        """ 
         invoke(self.player.dialogue_subtitles, "Привет…", delay=3)
 
         invoke(self.player.dialogue_subtitles,
